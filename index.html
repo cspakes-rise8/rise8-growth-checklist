@@ -16,10 +16,7 @@
             background: #131414;
             background-image: 
                 radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%);
             min-height: 100vh;
             color: #F2F2F2;
         }
@@ -38,27 +35,6 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 40%, rgba(255, 0, 0, 0.03) 50%, transparent 60%),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 1px,
-                    rgba(255, 255, 255, 0.01) 1px,
-                    rgba(255, 255, 255, 0.01) 2px
-                );
-            pointer-events: none;
         }
 
         .header-top {
@@ -66,20 +42,16 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
         }
 
         .rise8-logo {
-            display: flex;
-            align-items: center;
-            height: 40px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #F2F2F2;
         }
 
-        .rise8-logo img {
-            height: 40px;
-            width: auto;
-            filter: brightness(1.1);
+        .rise8-logo span {
+            color: #FF0000;
         }
 
         .back-button {
@@ -102,15 +74,12 @@
             font-size: 2.5rem;
             font-weight: 700;
             color: #F2F2F2;
-            margin-bottom: 10px;
             text-align: center;
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
         }
 
-        /* Landing Page Styles */
+        /* Landing Page */
         .landing-page {
             display: flex;
             flex-direction: column;
@@ -126,11 +95,18 @@
             border: 1px solid rgba(255, 0, 0, 0.1);
             padding: 40px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
         }
 
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
         .form-group {
+            flex: 1;
             margin-bottom: 20px;
         }
 
@@ -144,7 +120,7 @@
             margin-bottom: 10px;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 15px 20px;
             border: 2px solid rgba(255, 0, 0, 0.3);
@@ -155,15 +131,30 @@
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: #FF0000;
             box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
-            background: rgba(43, 44, 44, 1);
         }
 
-        .form-group input::placeholder {
+        .template-info {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FF0000;
+        }
+
+        .template-info h4 {
+            color: #FF0000;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .template-info p {
+            font-size: 0.9rem;
             color: #CACACA;
+            line-height: 1.4;
         }
 
         .start-button {
@@ -186,29 +177,38 @@
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
         }
 
-        .start-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Checklist Page Styles */
+        /* Checklist Page */
         .checklist-page {
             display: none;
         }
 
-        .checklist-page:not(.hidden) {
+        .checklist-page.show {
             display: block;
         }
 
-        .opportunity-header {
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-card {
             background: rgba(43, 44, 44, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             border: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 20px 30px;
-            margin-bottom: 20px;
+            padding: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .dashboard-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #F2F2F2;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .opportunity-name {
@@ -218,10 +218,6 @@
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .progress-container {
-            margin-bottom: 15px;
         }
 
         .progress-stats {
@@ -259,58 +255,76 @@
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
-        .checklist-container {
+        .team-member {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-member:last-child {
+            border-bottom: none;
+        }
+
+        .member-name {
+            font-weight: 600;
+            color: #F2F2F2;
+        }
+
+        .workload-bar {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 15px;
+            overflow: hidden;
+        }
+
+        .workload-fill {
+            height: 100%;
+            background: linear-gradient(78deg, #FF0000, #800031);
+            transition: width 0.5s ease;
+        }
+
+        .workload-count {
+            font-size: 0.9rem;
+            color: #CACACA;
+        }
+
+        .controls-section {
             background: rgba(43, 44, 44, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 12px;
             border: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 30px;
+            padding: 20px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .section {
-            margin-bottom: 30px;
+        .controls-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
         }
 
-        .section-header {
-            font-size: 1.3rem;
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-size: 0.9rem;
             font-weight: 600;
             color: #F2F2F2;
-            margin-bottom: 15px;
-            padding: 15px 20px;
-            background: rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #FF0000;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
-        .task-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 20px;
-            margin-bottom: 8px;
-            background: rgba(202, 202, 202, 0.05);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .task-item:hover {
-            background: rgba(255, 0, 0, 0.05);
-            border-color: rgba(255, 0, 0, 0.3);
-        }
-
-        .task-text {
-            flex: 1;
-            font-size: 1rem;
-            color: #F2F2F2;
-            line-height: 1.5;
-        }
-
-        .status-dropdown {
-            min-width: 140px;
+        .filter-select {
             padding: 8px 12px;
             background: rgba(43, 44, 44, 0.9);
             color: #F2F2F2;
@@ -318,19 +332,28 @@
             border-radius: 6px;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
         }
 
-        .status-dropdown:focus {
-            outline: none;
+        .view-toggle {
+            display: flex;
+            gap: 10px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .view-btn.active {
+            background: rgba(255, 0, 0, 0.2);
             border-color: #FF0000;
         }
-
-        .status-incomplete { border-left: 4px solid #CACACA; }
-        .status-in-progress { border-left: 4px solid #0098FF; }
-        .status-needs-help { border-left: 4px solid #FF9500; }
-        .status-blocked { border-left: 4px solid #FF0000; }
-        .status-complete { border-left: 4px solid #00C851; }
 
         .export-controls {
             display: flex;
@@ -350,50 +373,247 @@
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-        }
-
-        .btn-secondary {
             background: rgba(43, 44, 44, 0.9);
             color: #F2F2F2;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .btn-secondary:hover {
+        .btn:hover {
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 0, 0, 0.4);
             transform: translateY(-2px);
+        }
+
+        .checklist-container {
+            background: rgba(43, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-header {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #F2F2F2;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #FF0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .section-header:hover {
+            background: rgba(255, 0, 0, 0.15);
+        }
+
+        .section-toggle {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .section-toggle.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .section-tasks {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .section-tasks.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            margin-bottom: 8px;
+            background: rgba(202, 202, 202, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .task-item:hover {
+            background: rgba(255, 0, 0, 0.05);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .task-item.hidden {
+            display: none;
+        }
+
+        .task-urgency {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+
+        .urgency-overdue {
+            background: #FF0000;
+            box-shadow: 0 0 6px rgba(255, 0, 0, 0.6);
+        }
+
+        .urgency-due-soon {
+            background: #FFC107;
+            box-shadow: 0 0 6px rgba(255, 193, 7, 0.6);
+        }
+
+        .urgency-due-later {
+            background: #28A745;
+            box-shadow: 0 0 6px rgba(40, 167, 69, 0.6);
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 1rem;
+            color: #F2F2F2;
+            line-height: 1.5;
+        }
+
+        .task-time-estimate {
+            font-size: 0.8rem;
+            color: #CACACA;
+            margin-top: 4px;
+        }
+
+        .task-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .task-input {
+            min-width: 120px;
+            padding: 8px 12px;
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .task-input:focus {
+            outline: none;
+            border-color: #FF0000;
+        }
+
+        .due-date-input {
+            min-width: 140px;
+        }
+
+        .time-estimate-input {
+            min-width: 80px;
+        }
+
+        /* Status colors */
+        .status-incomplete {
+            background: rgba(43, 44, 44, 0.9);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .status-in-progress {
+            background: rgba(202, 202, 202, 0.9);
+            color: #131414;
+            border-color: #CACACA;
+        }
+
+        .status-needs-help {
+            background: rgba(255, 193, 7, 0.9);
+            color: #131414;
+            border-color: #FFC107;
+        }
+
+        .status-blocked {
+            background: rgba(255, 0, 0, 0.9);
+            color: #F2F2F2;
+            border-color: #FF0000;
+        }
+
+        .status-complete {
+            background: rgba(40, 167, 69, 0.9);
+            color: #F2F2F2;
+            border-color: #28A745;
         }
 
         .hidden {
             display: none !important;
         }
 
-        .show {
-            display: block !important;
+        .save-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(40, 167, 69, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
         }
 
+        .save-indicator.show {
+            opacity: 1;
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
+            .dashboard-grid {
+                grid-template-columns: 1fr;
             }
             
-            .opportunity-form {
-                margin: 20px;
-                padding: 30px;
+            .form-row {
+                flex-direction: column;
+                gap: 0;
             }
-            
-            .container {
-                padding: 15px;
+
+            .controls-row {
+                flex-direction: column;
+                align-items: stretch;
             }
 
             .task-item {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
                 gap: 10px;
             }
 
-            .status-dropdown {
+            .task-controls {
+                flex-direction: column;
+                gap: 8px;
                 width: 100%;
+            }
+
+            .task-input {
+                width: 100%;
+                min-width: unset;
             }
         }
     </style>
@@ -404,9 +624,7 @@
         <div id="landingPage" class="landing-page">
             <div class="header">
                 <div class="header-top">
-                    <div class="rise8-logo">
-                        <img src="" alt="Rise8 Logo" />
-                    </div>
+                    <div class="rise8-logo">RISE<span>8</span></div>
                 </div>
                 <h1>Growth Checklist</h1>
             </div>
@@ -416,6 +634,46 @@
                     <label for="opportunityName">Opportunity Name</label>
                     <input type="text" id="opportunityName" placeholder="Enter opportunity name..." />
                 </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="proposalType">Proposal Type</label>
+                        <select id="proposalType" onchange="updateTemplateInfo()">
+                            <option value="prime">Prime Contractor</option>
+                            <option value="subcontractor">Subcontractor</option>
+                            <option value="sbir">SBIR/STTR</option>
+                            <option value="gsa">GSA Schedule</option>
+                            <option value="recompete">Recompete</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="proposalDeadline">Proposal Deadline</label>
+                        <input type="date" id="proposalDeadline" />
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="estimatedValue">Estimated Contract Value</label>
+                        <input type="text" id="estimatedValue" placeholder="e.g., $5M" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contractLength">Contract Length</label>
+                        <select id="contractLength">
+                            <option value="1">1 Year</option>
+                            <option value="2">2 Years</option>
+                            <option value="3">3 Years</option>
+                            <option value="5" selected>5 Years</option>
+                            <option value="10">10 Years</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="template-info" id="templateInfo">
+                    <h4>Prime Contractor Template</h4>
+                    <p>Full proposal development workflow including teaming agreements, comprehensive technical writing, and competitive pricing strategy. Estimated timeline: 10-12 weeks.</p>
+                </div>
+
                 <button class="start-button" onclick="startChecklist()">Start Checklist</button>
             </div>
         </div>
@@ -424,17 +682,15 @@
         <div id="checklistPage" class="checklist-page">
             <div class="header">
                 <div class="header-top">
-                    <div class="rise8-logo">
-                        <img src="" alt="Rise8 Logo" />
-                    </div>
+                    <div class="rise8-logo">RISE<span>8</span></div>
                     <button class="back-button" onclick="goBackToLanding()">← Back to Start</button>
                 </div>
                 <h1>Growth Checklist</h1>
             </div>
 
-            <div class="opportunity-header">
-                <div class="opportunity-name" id="currentOpportunityName"></div>
-                <div class="progress-container">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="opportunity-name" id="currentOpportunityName"></div>
                     <div class="progress-stats">
                         <span class="progress-text">Progress</span>
                         <span class="progress-percentage" id="progressPercentage">0%</span>
@@ -443,11 +699,49 @@
                         <div class="progress-fill" id="progressFill" style="width: 0%"></div>
                     </div>
                 </div>
+
+                <div class="dashboard-card">
+                    <div class="dashboard-title">Team Workload</div>
+                    <div id="teamWorkload"></div>
+                </div>
+            </div>
+
+            <div class="controls-section">
+                <div class="controls-row">
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="switchView('checklist')">Checklist</button>
+                        <button class="view-btn" onclick="switchView('timeline')">Timeline</button>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Show:</span>
+                        <select id="filterTasks" class="filter-select" onchange="applyFilters()">
+                            <option value="all">All Tasks</option>
+                            <option value="my-tasks">My Tasks</option>
+                            <option value="incomplete">Incomplete</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="complete">Complete</option>
+                            <option value="overdue">Overdue</option>
+                            <option value="due-soon">Due Soon</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Person:</span>
+                        <select id="filterPerson" class="filter-select" onchange="applyFilters()">
+                            <option value="all">Everyone</option>
+                            <option value="unassigned">Unassigned</option>
+                            <option value="Carlo Viray">Carlo</option>
+                            <option value="Clayton Spakes">Clayton</option>
+                            <option value="Shanna Chen">Shanna</option>
+                            <option value="Bree Knight">Bree</option>
+                        </select>
+                    </div>
+                </div>
             </div>
 
             <div class="export-controls">
-                <button class="btn btn-secondary" onclick="exportProgress()">Export Progress</button>
-                <button class="btn btn-secondary" onclick="resetProgress()">Reset All</button>
+                <button class="btn" onclick="exportProgress()">Export Progress</button>
+                <button class="btn" onclick="resetProgress()">Reset All</button>
+                <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
             </div>
 
             <div class="checklist-container">
@@ -456,213 +750,279 @@
         </div>
     </div>
 
+    <div class="save-indicator" id="saveIndicator">Saved</div>
+
     <script>
-        const tasks = [
-            // Administration
-            { section: "Administration", text: "Receive and distribute formal RFP" },
-            { section: "Administration", text: "Create proposal folder in Opportunity Drive" },
-            { section: "Administration", text: "Log opportunity in pipeline tracker" },
-            { section: "Administration", text: "Assign proposal manager" },
-            { section: "Administration", text: "Create internal Slack channel for proposal team" },
-            { section: "Administration", text: "Develop proposal schedule with key milestones" },
-            { section: "Administration", text: "Create compliance matrix and document requirements" },
-            { section: "Administration", text: "Schedule internal kickoff with Growth, Delivery, and Executive stakeholders" },
-            { section: "Administration", text: "Create kickoff deck and agenda" },
-            { section: "Administration", text: "Establish shared access to working documents" },
+        // Global state
+        let state = {
+            currentOpportunity: '',
+            proposalDeadline: null,
+            proposalType: 'prime',
+            estimatedValue: '',
+            contractLength: '5',
+            taskStatuses: {},
+            taskAssignments: {},
+            taskDueDates: {},
+            taskTimeEstimates: {},
+            collapsedSections: new Set(),
+            currentUser: 'Carlo Viray',
+            currentView: 'checklist'
+        };
+
+        const teamMembers = ["Carlo Viray", "Clayton Spakes", "Shanna Chen", "Bree Knight"];
+
+        const templates = {
+            prime: {
+                name: "Prime Contractor Template",
+                description: "Full proposal development workflow including teaming agreements, comprehensive technical writing, and competitive pricing strategy. Estimated timeline: 10-12 weeks.",
+                excludeSections: []
+            },
+            subcontractor: {
+                name: "Subcontractor Template", 
+                description: "Streamlined workflow focused on technical approach and past performance. Reduced administrative overhead. Estimated timeline: 6-8 weeks.",
+                excludeSections: ["Partner Coordination"]
+            },
+            sbir: {
+                name: "SBIR/STTR Template",
+                description: "Research-focused proposal with emphasis on innovation, technical merit, and commercialization potential. Estimated timeline: 8-10 weeks.",
+                excludeSections: ["Partner Coordination"]
+            },
+            gsa: {
+                name: "GSA Schedule Template",
+                description: "Compliance-heavy workflow for GSA Schedule contracts with focus on pricing and past performance. Estimated timeline: 4-6 weeks.",
+                excludeSections: ["Partner Coordination", "Solutioning"]
+            },
+            recompete: {
+                name: "Recompete Template",
+                description: "Incumbent advantage strategy with emphasis on past performance and lessons learned. Estimated timeline: 8-10 weeks.",
+                excludeSections: []
+            }
+        };
+
+        const allTasks = [
+            { section: "Administration", text: "Receive and distribute formal RFP", defaultDays: 0, estimatedHours: 2 },
+            { section: "Administration", text: "Create proposal folder in Opportunity Drive", defaultDays: 1, estimatedHours: 1 },
+            { section: "Administration", text: "Log opportunity in pipeline tracker", defaultDays: 1, estimatedHours: 1 },
+            { section: "Administration", text: "Assign proposal manager", defaultDays: 2, estimatedHours: 2 },
+            { section: "Administration", text: "Create internal Slack channel for proposal team", defaultDays: 2, estimatedHours: 1 },
+            { section: "Administration", text: "Develop proposal schedule with key milestones", defaultDays: 3, estimatedHours: 4 },
+            { section: "Administration", text: "Create compliance matrix and document requirements", defaultDays: 5, estimatedHours: 6 },
+            { section: "Administration", text: "Schedule internal kickoff meeting", defaultDays: 3, estimatedHours: 2 },
+            { section: "Administration", text: "Create kickoff deck and agenda", defaultDays: 4, estimatedHours: 3 },
+            { section: "Administration", text: "Establish shared access to working documents", defaultDays: 2, estimatedHours: 1 },
             
-            // Partner Coordination
-            { section: "Partner Coordination", text: "Identify teaming partners" },
-            { section: "Partner Coordination", text: "Send and collect NDAs" },
-            { section: "Partner Coordination", text: "Send and finalize Teaming Agreements" },
-            { section: "Partner Coordination", text: "Create external Slack channel with partners" },
-            { section: "Partner Coordination", text: "Distribute RFP materials to partners" },
-            { section: "Partner Coordination", text: "Conduct data calls to gather partner input" },
-            { section: "Partner Coordination", text: "Grant partners access to working documents" },
-            { section: "Partner Coordination", text: "Host partner kickoff meeting" },
+            { section: "Partner Coordination", text: "Identify teaming partners", defaultDays: 5, estimatedHours: 8 },
+            { section: "Partner Coordination", text: "Send and collect NDAs", defaultDays: 7, estimatedHours: 4 },
+            { section: "Partner Coordination", text: "Send and finalize Teaming Agreements", defaultDays: 14, estimatedHours: 12 },
+            { section: "Partner Coordination", text: "Create external Slack channel with partners", defaultDays: 8, estimatedHours: 1 },
+            { section: "Partner Coordination", text: "Distribute RFP materials to partners", defaultDays: 6, estimatedHours: 2 },
+            { section: "Partner Coordination", text: "Conduct data calls to gather partner input", defaultDays: 10, estimatedHours: 6 },
+            { section: "Partner Coordination", text: "Grant partners access to working documents", defaultDays: 8, estimatedHours: 2 },
+            { section: "Partner Coordination", text: "Host partner kickoff meeting", defaultDays: 10, estimatedHours: 3 },
             
-            // Solutioning
-            { section: "Solutioning", text: "Schedule solutioning workshops" },
-            { section: "Solutioning", text: "Prepare solutioning workshop figjam" },
-            { section: "Solutioning", text: "Create NotebookLM, upload source documents, generate summaries" },
-            { section: "Solutioning", text: "Break down PWS into solution areas" },
-            { section: "Solutioning", text: "Define key outcomes and delivery strategies" },
-            { section: "Solutioning", text: "Identify team roles, structure, and delivery approach" },
-            { section: "Solutioning", text: "Capture win themes and differentiators" },
-            { section: "Solutioning", text: "Draft annotated outline aligned to evaluation criteria" },
-            { section: "Solutioning", text: "Identify all key past performance examples and references" },
-            { section: "Solutioning", text: "Research best practices and competitive intelligence" },
-            { section: "Solutioning", text: "Validate assumptions with subject matter experts" },
-            { section: "Solutioning", text: "Document key decisions and rationale" },
+            { section: "Solutioning", text: "Schedule solutioning workshops", defaultDays: 7, estimatedHours: 2 },
+            { section: "Solutioning", text: "Prepare solutioning workshop materials", defaultDays: 8, estimatedHours: 4 },
+            { section: "Solutioning", text: "Create NotebookLM, upload source documents", defaultDays: 9, estimatedHours: 3 },
+            { section: "Solutioning", text: "Break down PWS into solution areas", defaultDays: 12, estimatedHours: 8 },
+            { section: "Solutioning", text: "Define key outcomes and delivery strategies", defaultDays: 14, estimatedHours: 12 },
+            { section: "Solutioning", text: "Identify team roles and delivery approach", defaultDays: 16, estimatedHours: 10 },
+            { section: "Solutioning", text: "Capture win themes and differentiators", defaultDays: 18, estimatedHours: 8 },
+            { section: "Solutioning", text: "Draft annotated outline aligned to evaluation criteria", defaultDays: 20, estimatedHours: 12 },
+            { section: "Solutioning", text: "Identify key past performance examples", defaultDays: 15, estimatedHours: 6 },
+            { section: "Solutioning", text: "Research best practices and competitive intelligence", defaultDays: 17, estimatedHours: 8 },
+            { section: "Solutioning", text: "Validate assumptions with subject matter experts", defaultDays: 19, estimatedHours: 6 },
+            { section: "Solutioning", text: "Document key decisions and rationale", defaultDays: 21, estimatedHours: 4 },
             
-            // Resource Planning
-            { section: "Resource Planning", text: "Develop preliminary staffing plan" },
-            { section: "Resource Planning", text: "Identify key personnel and availability" },
-            { section: "Resource Planning", text: "Calculate labor rates and indirect costs" },
-            { section: "Resource Planning", text: "Develop cost model and pricing strategy" },
-            { section: "Resource Planning", text: "Validate resource requirements with delivery teams" },
-            { section: "Resource Planning", text: "Identify potential resource conflicts and mitigation strategies" },
+            { section: "Writing & Review", text: "Assign writing leads for each section", defaultDays: 28, estimatedHours: 2 },
+            { section: "Writing & Review", text: "Create writing templates and style guide", defaultDays: 29, estimatedHours: 4 },
+            { section: "Writing & Review", text: "Draft executive summary", defaultDays: 35, estimatedHours: 8 },
+            { section: "Writing & Review", text: "Draft technical approach sections", defaultDays: 40, estimatedHours: 24 },
+            { section: "Writing & Review", text: "Draft management approach sections", defaultDays: 42, estimatedHours: 16 },
+            { section: "Writing & Review", text: "Draft past performance section", defaultDays: 38, estimatedHours: 12 },
+            { section: "Writing & Review", text: "Conduct internal technical review", defaultDays: 45, estimatedHours: 12 },
+            { section: "Writing & Review", text: "Conduct compliance review", defaultDays: 47, estimatedHours: 8 },
+            { section: "Writing & Review", text: "Incorporate review feedback", defaultDays: 52, estimatedHours: 16 },
+            { section: "Writing & Review", text: "Final proofreading and formatting", defaultDays: 55, estimatedHours: 8 },
             
-            // Writing & Review
-            { section: "Writing & Review", text: "Assign writing leads for each section" },
-            { section: "Writing & Review", text: "Create writing templates and style guide" },
-            { section: "Writing & Review", text: "Establish review cycles and deadlines" },
-            { section: "Writing & Review", text: "Draft executive summary" },
-            { section: "Writing & Review", text: "Draft technical approach sections" },
-            { section: "Writing & Review", text: "Draft management approach sections" },
-            { section: "Writing & Review", text: "Draft past performance section" },
-            { section: "Writing & Review", text: "Draft key personnel section" },
-            { section: "Writing & Review", text: "Conduct internal technical review" },
-            { section: "Writing & Review", text: "Conduct compliance review" },
-            { section: "Writing & Review", text: "Conduct executive review" },
-            { section: "Writing & Review", text: "Incorporate review feedback" },
-            { section: "Writing & Review", text: "Final proofreading and formatting" },
+            { section: "Pricing & Business", text: "Develop cost model and pricing strategy", defaultDays: 50, estimatedHours: 12 },
+            { section: "Pricing & Business", text: "Conduct pricing review with finance", defaultDays: 53, estimatedHours: 4 },
+            { section: "Pricing & Business", text: "Complete cost/price volume", defaultDays: 56, estimatedHours: 12 },
+            { section: "Pricing & Business", text: "Obtain pricing approvals", defaultDays: 57, estimatedHours: 4 },
             
-            // Pricing & Business
-            { section: "Pricing & Business", text: "Finalize cost model" },
-            { section: "Pricing & Business", text: "Develop pricing strategy and fee structure" },
-            { section: "Pricing & Business", text: "Conduct pricing review with finance" },
-            { section: "Pricing & Business", text: "Validate pricing competitiveness" },
-            { section: "Pricing & Business", text: "Complete cost/price volume" },
-            { section: "Pricing & Business", text: "Obtain pricing approvals" },
+            { section: "Quality Assurance", text: "Complete final compliance check", defaultDays: 58, estimatedHours: 6 },
+            { section: "Quality Assurance", text: "Verify all required documents are included", defaultDays: 59, estimatedHours: 4 },
+            { section: "Quality Assurance", text: "Check page limits and formatting", defaultDays: 60, estimatedHours: 4 },
+            { section: "Quality Assurance", text: "Conduct final quality review", defaultDays: 63, estimatedHours: 8 },
             
-            // Quality Assurance
-            { section: "Quality Assurance", text: "Complete final compliance check" },
-            { section: "Quality Assurance", text: "Verify all required documents are included" },
-            { section: "Quality Assurance", text: "Check page limits and formatting requirements" },
-            { section: "Quality Assurance", text: "Validate all cross-references and citations" },
-            { section: "Quality Assurance", text: "Review graphics and exhibits" },
-            { section: "Quality Assurance", text: "Conduct final quality review" },
-            
-            // Submission Preparation
-            { section: "Submission Preparation", text: "Prepare submission checklist" },
-            { section: "Submission Preparation", text: "Package proposal volumes" },
-            { section: "Submission Preparation", text: "Prepare electronic submission files" },
-            { section: "Submission Preparation", text: "Create backup copies" },
-            { section: "Submission Preparation", text: "Coordinate delivery logistics" },
-            { section: "Submission Preparation", text: "Submit proposal by deadline" },
-            { section: "Submission Preparation", text: "Send submission confirmation" },
-            
-            // Post-Submission
-            { section: "Post-Submission", text: "Conduct lessons learned session" },
-            { section: "Post-Submission", text: "Archive proposal materials" },
-            { section: "Post-Submission", text: "Prepare for potential orals/presentations" },
-            { section: "Post-Submission", text: "Develop post-award transition plan" },
-            { section: "Post-Submission", text: "Monitor award timeline and communications" },
-            { section: "Post-Submission", text: "Prepare win/loss analysis" },
-            
-            // Contingency Planning
-            { section: "Contingency Planning", text: "Identify potential risks and mitigation strategies" },
-            { section: "Contingency Planning", text: "Develop contingency plans for key personnel unavailability" },
-            { section: "Contingency Planning", text: "Plan for potential scope changes or amendments" },
-            { section: "Contingency Planning", text: "Establish communication protocols for issues" },
-            { section: "Contingency Planning", text: "Create backup submission plans" }
+            { section: "Submission Preparation", text: "Prepare submission checklist", defaultDays: 64, estimatedHours: 2 },
+            { section: "Submission Preparation", text: "Package proposal volumes", defaultDays: 65, estimatedHours: 4 },
+            { section: "Submission Preparation", text: "Prepare electronic submission files", defaultDays: 66, estimatedHours: 4 },
+            { section: "Submission Preparation", text: "Submit proposal by deadline", defaultDays: 69, estimatedHours: 4 }
         ];
 
-        let currentOpportunity = '';
-        let taskStatuses = {};
+        let tasks = [];
 
-        // Load logo when page loads
-        async function loadLogo() {
-            try {
-                // Check if window.fs is available (might not be in all environments)
-                if (typeof window.fs !== 'undefined' && window.fs.readFile) {
-                    const logoData = await window.fs.readFile('rise8-logo.png');
-                    const blob = new Blob([logoData], { type: 'image/png' });
-                    const logoUrl = URL.createObjectURL(blob);
-                    
-                    const logoImgs = document.querySelectorAll('.rise8-logo img');
-                    logoImgs.forEach(img => {
-                        img.src = logoUrl;
-                    });
-                } else {
-                    throw new Error('File system not available');
-                }
-            } catch (error) {
-                console.log('Logo file not found or file system not available, using text fallback');
-                const logoContainers = document.querySelectorAll('.rise8-logo');
-                logoContainers.forEach(container => {
-                    container.innerHTML = '<span style="color: #F2F2F2; font-size: 1.5rem; font-weight: 700;">RISE<span style="color: #FF0000;">8</span></span>';
-                });
-            }
+        // Utility functions
+        function formatDate(date) {
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+        }
+
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function getDaysUntilDue(dueDate) {
+            if (!dueDate) return null;
+            const today = new Date();
+            const due = new Date(dueDate);
+            return Math.ceil((due - today) / (1000 * 60 * 60 * 24));
+        }
+
+        function getUrgencyClass(dueDate) {
+            const days = getDaysUntilDue(dueDate);
+            if (days === null) return '';
+            if (days < 0) return 'urgency-overdue';
+            if (days <= 3) return 'urgency-due-soon';
+            if (days <= 7) return 'urgency-due-later';
+            return '';
+        }
+
+        function showSaveIndicator() {
+            const indicator = document.getElementById('saveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        function updateTemplateInfo() {
+            const type = document.getElementById('proposalType').value;
+            const template = templates[type];
+            document.getElementById('templateInfo').innerHTML = `
+                <h4>${template.name}</h4>
+                <p>${template.description}</p>
+            `;
+        }
+
+        function filterTasksByTemplate(templateType) {
+            const template = templates[templateType];
+            return allTasks.filter(task => !template.excludeSections.includes(task.section));
         }
 
         function startChecklist() {
-            console.log('Starting checklist...');
             const opportunityName = document.getElementById('opportunityName').value.trim();
+            const deadline = document.getElementById('proposalDeadline').value;
+            const type = document.getElementById('proposalType').value;
+            const value = document.getElementById('estimatedValue').value.trim();
+            const length = document.getElementById('contractLength').value;
             
             if (!opportunityName) {
                 alert('Please enter an opportunity name');
                 return;
             }
 
-            console.log('Opportunity name:', opportunityName);
-            currentOpportunity = opportunityName;
-            
-            // Load existing data for this opportunity
-            try {
-                const savedData = localStorage.getItem(`checklist_${opportunityName}`);
-                if (savedData) {
-                    taskStatuses = JSON.parse(savedData);
-                    console.log('Loaded existing data');
-                } else {
-                    // Initialize all tasks as incomplete
-                    taskStatuses = {};
-                    tasks.forEach((task, index) => {
-                        taskStatuses[index] = 'incomplete';
-                    });
-                    console.log('Initialized new task statuses');
-                }
-            } catch (error) {
-                console.error('Error loading saved data:', error);
-                // Initialize fresh if there's an error
-                taskStatuses = {};
-                tasks.forEach((task, index) => {
-                    taskStatuses[index] = 'incomplete';
-                });
+            if (!deadline) {
+                alert('Please enter a proposal deadline');
+                return;
             }
 
-            try {
-                // Show checklist page
-                const landingPage = document.getElementById('landingPage');
-                const checklistPage = document.getElementById('checklistPage');
+            state.currentOpportunity = opportunityName;
+            state.proposalDeadline = new Date(deadline);
+            state.proposalType = type;
+            state.estimatedValue = value;
+            state.contractLength = length;
+            
+            tasks = filterTasksByTemplate(state.proposalType);
+            initializeNewChecklist();
+
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('checklistPage').classList.remove('hidden');
+            document.getElementById('checklistPage').classList.add('show');
+            
+            const headerText = `${opportunityName} (${templates[state.proposalType].name})`;
+            const subText = `Due: ${formatDate(state.proposalDeadline)} | Value: ${state.estimatedValue || 'TBD'} | ${state.contractLength} Years`;
+            document.getElementById('currentOpportunityName').innerHTML = `${headerText}<br><small style="font-size: 0.8rem; opacity: 0.8;">${subText}</small>`;
+            
+            renderChecklist();
+            renderTeamWorkload();
+            updateProgress();
+        }
+
+        function initializeNewChecklist() {
+            state.taskStatuses = {};
+            state.taskAssignments = {};
+            state.taskDueDates = {};
+            state.taskTimeEstimates = {};
+            
+            tasks.forEach((task, index) => {
+                state.taskStatuses[index] = 'incomplete';
+                state.taskAssignments[index] = '';
+                state.taskTimeEstimates[index] = task.estimatedHours;
                 
-                landingPage.classList.add('hidden');
-                checklistPage.classList.remove('hidden');
-                checklistPage.classList.add('show');
-                
-                document.getElementById('currentOpportunityName').textContent = opportunityName;
-                
-                console.log('Page transition complete');
-                console.log('Landing page hidden:', landingPage.classList.contains('hidden'));
-                console.log('Checklist page visible:', !checklistPage.classList.contains('hidden'));
-                
-                renderChecklist();
-                updateProgress();
-                console.log('Checklist rendered successfully');
-            } catch (error) {
-                console.error('Error in startChecklist:', error);
-                alert('There was an error starting the checklist. Please try again.');
-            }
+                if (state.proposalDeadline) {
+                    const daysFromDeadline = task.defaultDays - 69;
+                    state.taskDueDates[index] = addDays(state.proposalDeadline, daysFromDeadline).toISOString().split('T')[0];
+                }
+            });
         }
 
         function goBackToLanding() {
             document.getElementById('checklistPage').classList.add('hidden');
+            document.getElementById('checklistPage').classList.remove('show');
             document.getElementById('landingPage').classList.remove('hidden');
-            document.getElementById('opportunityName').value = '';
+        }
+
+        function switchView(viewType) {
+            state.currentView = viewType;
+            document.querySelectorAll('.view-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[onclick="switchView('${viewType}')"]`).classList.add('active');
+            
+            if (viewType === 'timeline') {
+                alert('Timeline view coming in Phase 3!');
+            }
+        }
+
+        function renderTeamWorkload() {
+            const container = document.getElementById('teamWorkload');
+            const workloads = {};
+            
+            teamMembers.forEach(member => {
+                workloads[member] = { assigned: 0, hours: 0 };
+            });
+            
+            tasks.forEach((task, index) => {
+                const assignedTo = state.taskAssignments[index];
+                if (assignedTo && workloads[assignedTo]) {
+                    workloads[assignedTo].assigned++;
+                    workloads[assignedTo].hours += state.taskTimeEstimates[index] || 0;
+                }
+            });
+            
+            const maxTasks = Math.max(...Object.values(workloads).map(w => w.assigned), 1);
+            
+            let html = '';
+            teamMembers.forEach(member => {
+                const workload = workloads[member];
+                const percentage = (workload.assigned / maxTasks) * 100;
+                
+                html += `
+                    <div class="team-member">
+                        <div class="member-name">${member.split(' ')[0]}</div>
+                        <div class="workload-bar">
+                            <div class="workload-fill" style="width: ${percentage}%"></div>
+                        </div>
+                        <div class="workload-count">${workload.assigned} tasks (${workload.hours}h)</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
         }
 
         function renderChecklist() {
-            console.log('Rendering checklist...');
             const container = document.getElementById('checklistContent');
-            
-            if (!container) {
-                console.error('Checklist container not found');
-                return;
-            }
-            
             const sections = {};
             
-            // Group tasks by section
             tasks.forEach((task, index) => {
                 if (!sections[task.section]) {
                     sections[task.section] = [];
@@ -670,50 +1030,155 @@
                 sections[task.section].push({ ...task, index });
             });
 
-            console.log('Sections created:', Object.keys(sections));
-
             let html = '';
             Object.keys(sections).forEach(section => {
                 const sectionTasks = sections[section];
+                const isCollapsed = state.collapsedSections.has(section);
                 
                 html += `<div class="section">
-                    <div class="section-header">${section}</div>`;
+                    <div class="section-header" onclick="toggleSection('${section}')">
+                        <span>${section}</span>
+                        <span class="section-toggle ${isCollapsed ? 'collapsed' : ''}">▼</span>
+                    </div>
+                    <div class="section-tasks ${isCollapsed ? 'collapsed' : ''}">`;
                 
                 sectionTasks.forEach(task => {
-                    const status = taskStatuses[task.index] || 'incomplete';
+                    const status = state.taskStatuses[task.index] || 'incomplete';
+                    const assignedPerson = state.taskAssignments[task.index] || '';
+                    const dueDate = state.taskDueDates[task.index] || '';
+                    const timeEstimate = state.taskTimeEstimates[task.index] || task.estimatedHours;
+                    const urgencyClass = getUrgencyClass(dueDate);
                     
                     html += `
-                        <div class="task-item status-${status}">
-                            <div class="task-text">${task.text}</div>
-                            <select class="status-dropdown" onchange="updateTaskStatus(${task.index}, this.value)">
-                                <option value="incomplete" ${status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
-                                <option value="in-progress" ${status === 'in-progress' ? 'selected' : ''}>In Progress</option>
-                                <option value="needs-help" ${status === 'needs-help' ? 'selected' : ''}>Needs Help</option>
-                                <option value="blocked" ${status === 'blocked' ? 'selected' : ''}>Blocked</option>
-                                <option value="complete" ${status === 'complete' ? 'selected' : ''}>Complete</option>
-                            </select>
+                        <div class="task-item" data-task-index="${task.index}">
+                            ${urgencyClass ? `<div class="task-urgency ${urgencyClass}"></div>` : ''}
+                            <div class="task-text">
+                                ${task.text}
+                                <div class="task-time-estimate">${timeEstimate}h estimated</div>
+                            </div>
+                            <div class="task-controls">
+                                <input type="date" class="task-input due-date-input" value="${dueDate}" 
+                                       onchange="updateTaskDueDate(${task.index}, this.value)">
+                                <input type="number" class="task-input time-estimate-input" value="${timeEstimate}" 
+                                       min="0.5" step="0.5" placeholder="hrs"
+                                       onchange="updateTaskTimeEstimate(${task.index}, this.value)">
+                                <select class="task-input" onchange="updateTaskAssignment(${task.index}, this.value)">
+                                    <option value="">Unassigned</option>
+                                    ${teamMembers.map(member => 
+                                        `<option value="${member}" ${assignedPerson === member ? 'selected' : ''}>${member.split(' ')[0]}</option>`
+                                    ).join('')}
+                                </select>
+                                <select class="task-input status-${status}" onchange="updateTaskStatus(${task.index}, this.value)">
+                                    <option value="incomplete" ${status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
+                                    <option value="in-progress" ${status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+                                    <option value="needs-help" ${status === 'needs-help' ? 'selected' : ''}>Needs Help</option>
+                                    <option value="blocked" ${status === 'blocked' ? 'selected' : ''}>Blocked</option>
+                                    <option value="complete" ${status === 'complete' ? 'selected' : ''}>Complete</option>
+                                </select>
+                            </div>
                         </div>`;
                 });
                 
-                html += '</div>';
+                html += '</div></div>';
             });
 
             container.innerHTML = html;
-            console.log('Checklist HTML rendered');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const taskFilter = document.getElementById('filterTasks').value;
+            const personFilter = document.getElementById('filterPerson').value;
+            
+            document.querySelectorAll('.task-item').forEach(taskElement => {
+                const taskIndex = parseInt(taskElement.dataset.taskIndex);
+                const status = state.taskStatuses[taskIndex];
+                const assignedPerson = state.taskAssignments[taskIndex];
+                const dueDate = state.taskDueDates[taskIndex];
+                
+                let show = true;
+                
+                if (taskFilter !== 'all') {
+                    switch(taskFilter) {
+                        case 'my-tasks':
+                            show = assignedPerson === state.currentUser;
+                            break;
+                        case 'overdue':
+                            show = getDaysUntilDue(dueDate) < 0;
+                            break;
+                        case 'due-soon':
+                            const days = getDaysUntilDue(dueDate);
+                            show = days >= 0 && days <= 3;
+                            break;
+                        default:
+                            show = status === taskFilter;
+                    }
+                }
+                
+                if (show && personFilter !== 'all') {
+                    if (personFilter === 'unassigned') {
+                        show = !assignedPerson;
+                    } else {
+                        show = assignedPerson === personFilter;
+                    }
+                }
+                
+                taskElement.classList.toggle('hidden', !show);
+            });
+        }
+
+        function toggleSection(sectionName) {
+            if (state.collapsedSections.has(sectionName)) {
+                state.collapsedSections.delete(sectionName);
+            } else {
+                state.collapsedSections.add(sectionName);
+            }
+            renderChecklist();
+        }
+
+        function toggleAllSections() {
+            const allSections = [...new Set(tasks.map(task => task.section))];
+            
+            if (state.collapsedSections.size === 0) {
+                allSections.forEach(section => state.collapsedSections.add(section));
+            } else {
+                state.collapsedSections.clear();
+            }
+            renderChecklist();
         }
 
         function updateTaskStatus(taskIndex, status) {
-            taskStatuses[taskIndex] = status;
-            saveProgress();
+            state.taskStatuses[taskIndex] = status;
+            showSaveIndicator();
             updateProgress();
+            renderTeamWorkload();
             
-            // Update the visual indicator
-            const taskItem = document.querySelector(`select[onchange*="${taskIndex}"]`).closest('.task-item');
-            taskItem.className = `task-item status-${status}`;
+            const statusDropdown = document.querySelector(`[data-task-index="${taskIndex}"] select:last-child`);
+            if (statusDropdown) {
+                statusDropdown.className = `task-input status-${status}`;
+            }
+        }
+
+        function updateTaskAssignment(taskIndex, person) {
+            state.taskAssignments[taskIndex] = person;
+            showSaveIndicator();
+            renderTeamWorkload();
+        }
+
+        function updateTaskDueDate(taskIndex, date) {
+            state.taskDueDates[taskIndex] = date;
+            showSaveIndicator();
+            renderChecklist();
+        }
+
+        function updateTaskTimeEstimate(taskIndex, hours) {
+            state.taskTimeEstimates[taskIndex] = parseFloat(hours) || 0;
+            showSaveIndicator();
+            renderTeamWorkload();
         }
 
         function updateProgress() {
-            const completedTasks = Object.values(taskStatuses).filter(status => status === 'complete').length;
+            const completedTasks = Object.values(state.taskStatuses).filter(status => status === 'complete').length;
             const totalTasks = tasks.length;
             const progressPercent = Math.round((completedTasks / totalTasks) * 100);
 
@@ -721,19 +1186,14 @@
             document.getElementById('progressFill').style.width = progressPercent + '%';
         }
 
-        function saveProgress() {
-            if (currentOpportunity) {
-                localStorage.setItem(`checklist_${currentOpportunity}`, JSON.stringify(taskStatuses));
-            }
-        }
-
         function exportProgress() {
-            const completedTasks = Object.values(taskStatuses).filter(status => status === 'complete').length;
+            const completedTasks = Object.values(state.taskStatuses).filter(status => status === 'complete').length;
             const totalTasks = tasks.length;
             const progressPercent = Math.round((completedTasks / totalTasks) * 100);
 
             let reportData = `Rise8 Growth Checklist Progress Report\n`;
-            reportData += `Opportunity: ${currentOpportunity}\n`;
+            reportData += `Opportunity: ${state.currentOpportunity}\n`;
+            reportData += `Proposal Deadline: ${formatDate(state.proposalDeadline)}\n`;
             reportData += `Generated: ${new Date().toLocaleDateString()}\n`;
             reportData += `Progress: ${completedTasks}/${totalTasks} (${progressPercent}%)\n\n`;
 
@@ -742,14 +1202,28 @@
                 if (!sections[task.section]) {
                     sections[task.section] = [];
                 }
-                sections[task.section].push({ ...task, index, status: taskStatuses[index] || 'incomplete' });
+                const assignedPerson = state.taskAssignments[index] || 'Unassigned';
+                const dueDate = state.taskDueDates[index];
+                sections[task.section].push({ 
+                    ...task, 
+                    index, 
+                    status: state.taskStatuses[index] || 'incomplete',
+                    assignedTo: assignedPerson,
+                    dueDate: dueDate ? formatDate(new Date(dueDate)) : 'No date set',
+                    timeEstimate: state.taskTimeEstimates[index] || task.estimatedHours
+                });
             });
 
             Object.keys(sections).forEach(section => {
                 reportData += `\n=== ${section} ===\n`;
                 sections[section].forEach(task => {
                     const statusText = task.status.replace('-', ' ').toUpperCase();
-                    reportData += `[${statusText}] ${task.text}\n`;
+                    const statusIcon = task.status === 'complete' ? '✅' : 
+                                     task.status === 'in-progress' ? '🔄' : 
+                                     task.status === 'blocked' ? '🚫' : 
+                                     task.status === 'needs-help' ? '❓' : '⏸️';
+                    reportData += `${statusIcon} [${statusText}] ${task.text}\n`;
+                    reportData += `    Due: ${task.dueDate} | Assigned: ${task.assignedTo} | Est: ${task.timeEstimate}h\n\n`;
                 });
             });
 
@@ -757,7 +1231,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `${currentOpportunity}_checklist_progress.txt`;
+            a.download = `Rise8_Growth_Checklist_${state.currentOpportunity.replace(/[^a-z0-9]/gi, '_')}_${new Date().toISOString().split('T')[0]}.txt`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -766,24 +1240,17 @@
 
         function resetProgress() {
             if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
-                tasks.forEach((task, index) => {
-                    taskStatuses[index] = 'incomplete';
-                });
-                saveProgress();
+                initializeNewChecklist();
                 renderChecklist();
+                renderTeamWorkload();
                 updateProgress();
+                showSaveIndicator();
             }
         }
 
-        // Load logo when page loads
-        document.addEventListener('DOMContentLoaded', loadLogo);
-
-        // Allow Enter key to start checklist
-        document.getElementById('opportunityName').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                startChecklist();
-            }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('landingPage').classList.remove('hidden');
+            document.getElementById('checklistPage').classList.add('hidden');
         });
     </script>
-</body>
-</html>
