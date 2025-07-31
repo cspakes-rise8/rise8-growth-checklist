@@ -401,10 +401,10 @@
             font-size: 1.2rem;
             font-weight: 600;
             color: #F2F2F2;
-            margin-bottom: 15px;
+            margin-bottom: 0;
             padding: 15px 20px;
             background: rgba(255, 0, 0, 0.1);
-            border-radius: 8px;
+            border-radius: 8px 8px 0 0;
             border-left: 4px solid #FF0000;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -420,6 +420,72 @@
             background: rgba(255, 0, 0, 0.15);
         }
 
+        .section-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .help-icon {
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #F2F2F2;
+            cursor: help;
+            position: relative;
+        }
+
+        .help-tooltip {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(43, 44, 44, 0.95);
+            color: #F2F2F2;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            text-transform: none;
+            letter-spacing: normal;
+            white-space: nowrap;
+            max-width: 300px;
+            white-space: normal;
+            line-height: 1.4;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .help-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(43, 44, 44, 0.95);
+        }
+
+        .help-icon:hover .help-tooltip {
+            opacity: 1;
+        }
+
         .section-toggle {
             font-size: 1.5rem;
             transition: transform 0.3s ease;
@@ -427,6 +493,45 @@
 
         .section-toggle.collapsed {
             transform: rotate(-90deg);
+        }
+
+        .section-subtitle-bar {
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 4px solid #FF0000;
+            padding: 10px 20px;
+            margin-bottom: 15px;
+            border-radius: 0 0 8px 8px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .section-subtitle-bar.collapsed {
+            max-height: 0;
+            padding: 0 20px;
+            margin-bottom: 0;
+            opacity: 0;
+        }
+
+        .section-subtitle-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #F2F2F2;
+            font-size: 0.95rem;
+            font-style: italic;
+            padding: 5px 0;
+            outline: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .section-subtitle-input:focus {
+            border-bottom-color: rgba(255, 0, 0, 0.5);
+        }
+
+        .section-subtitle-input::placeholder {
+            color: rgba(242, 242, 242, 0.5);
+            font-style: italic;
         }
 
         .section-tasks {
@@ -504,6 +609,63 @@
             gap: 10px;
             align-items: center;
             flex-wrap: wrap;
+        }
+
+        .task-input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .task-input-help {
+            width: 14px;
+            height: 14px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: bold;
+            color: #F2F2F2;
+            cursor: help;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .task-input-help .help-tooltip {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(43, 44, 44, 0.95);
+            color: #F2F2F2;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: normal;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .task-input-help .help-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(43, 44, 44, 0.95);
+        }
+
+        .task-input-help:hover .help-tooltip {
+            opacity: 1;
         }
 
         .task-input {
@@ -608,6 +770,10 @@
             .task-controls {
                 flex-direction: column;
                 gap: 8px;
+                width: 100%;
+            }
+
+            .task-input-group {
                 width: 100%;
             }
 
@@ -764,12 +930,32 @@
             taskAssignments: {},
             taskDueDates: {},
             taskTimeEstimates: {},
+            sectionSubtitles: {},
             collapsedSections: new Set(),
             currentUser: 'Carlo Viray',
             currentView: 'checklist'
         };
 
         const teamMembers = ["Carlo Viray", "Clayton Spakes", "Shanna Chen", "Bree Knight"];
+
+        // Section descriptions for help tooltips
+        const sectionDescriptions = {
+            "Administration": "Initial setup tasks including RFP distribution, team formation, folder creation, and compliance documentation. These foundational activities ensure proper project organization.",
+            "Partner Coordination": "Activities related to identifying, engaging, and managing teaming partners including NDAs, agreements, and collaborative workspace setup.",
+            "Solutioning": "Technical solution development including workshops, requirement analysis, approach definition, and competitive intelligence gathering.",
+            "Writing & Review": "Content creation and quality assurance including technical writing, management sections, review cycles, and feedback incorporation.",
+            "Pricing & Business": "Financial analysis and pricing strategy development including cost modeling, competitive pricing, and approval processes.",
+            "Quality Assurance": "Final validation activities ensuring compliance, completeness, formatting, and overall proposal quality before submission.",
+            "Submission Preparation": "Final packaging, file preparation, and submission logistics to ensure timely and compliant proposal delivery."
+        };
+
+        // Task input help descriptions
+        const taskInputHelp = {
+            dueDate: "Set when this task should be completed. Red dot = overdue, yellow = due soon, green = future.",
+            timeEstimate: "Estimated hours to complete this task. Used for workload planning and resource allocation.",
+            assignment: "Assign this task to a team member. Use 'My Tasks' filter to see only your assignments.",
+            status: "Track progress: Incomplete → In Progress → Complete. Use 'Needs Help' or 'Blocked' for issues."
+        };
 
         const templates = {
             prime: {
@@ -953,6 +1139,7 @@
             state.taskAssignments = {};
             state.taskDueDates = {};
             state.taskTimeEstimates = {};
+            state.sectionSubtitles = {};
             
             tasks.forEach((task, index) => {
                 state.taskStatuses[index] = 'incomplete';
@@ -964,6 +1151,25 @@
                     state.taskDueDates[index] = addDays(state.proposalDeadline, daysFromDeadline).toISOString().split('T')[0];
                 }
             });
+
+            // Initialize section subtitles with default suggestions
+            const uniqueSections = [...new Set(tasks.map(task => task.section))];
+            uniqueSections.forEach(section => {
+                state.sectionSubtitles[section] = getDefaultSectionSubtitle(section);
+            });
+        }
+
+        function getDefaultSectionSubtitle(section) {
+            const subtitles = {
+                "Administration": "Foundation setup and project organization",
+                "Partner Coordination": "Teaming agreements and partner management", 
+                "Solutioning": "Technical approach and solution development",
+                "Writing & Review": "Content creation and quality assurance",
+                "Pricing & Business": "Financial strategy and cost modeling",
+                "Quality Assurance": "Final validation and compliance checks",
+                "Submission Preparation": "Package and deliver proposal"
+            };
+            return subtitles[section] || "Custom section workflow";
         }
 
         function goBackToLanding() {
@@ -1034,11 +1240,29 @@
             Object.keys(sections).forEach(section => {
                 const sectionTasks = sections[section];
                 const isCollapsed = state.collapsedSections.has(section);
+                const sectionSubtitle = state.sectionSubtitles[section] || '';
+                const sectionDescription = sectionDescriptions[section] || 'No description available';
                 
                 html += `<div class="section">
                     <div class="section-header" onclick="toggleSection('${section}')">
-                        <span>${section}</span>
+                        <div class="section-header-left">
+                            <div class="section-title">
+                                <span>${section}</span>
+                                <div class="help-icon">
+                                    ?
+                                    <div class="help-tooltip">${sectionDescription}</div>
+                                </div>
+                            </div>
+                        </div>
                         <span class="section-toggle ${isCollapsed ? 'collapsed' : ''}">▼</span>
+                    </div>
+                    <div class="section-subtitle-bar ${isCollapsed ? 'collapsed' : ''}">
+                        <input type="text" 
+                               class="section-subtitle-input" 
+                               value="${sectionSubtitle}"
+                               placeholder="Add a custom subtitle or description for this section..."
+                               onchange="updateSectionSubtitle('${section}', this.value)"
+                               onclick="event.stopPropagation()">
                     </div>
                     <div class="section-tasks ${isCollapsed ? 'collapsed' : ''}">`;
                 
@@ -1057,24 +1281,48 @@
                                 <div class="task-time-estimate">${timeEstimate}h estimated</div>
                             </div>
                             <div class="task-controls">
-                                <input type="date" class="task-input due-date-input" value="${dueDate}" 
-                                       onchange="updateTaskDueDate(${task.index}, this.value)">
-                                <input type="number" class="task-input time-estimate-input" value="${timeEstimate}" 
-                                       min="0.5" step="0.5" placeholder="hrs"
-                                       onchange="updateTaskTimeEstimate(${task.index}, this.value)">
-                                <select class="task-input" onchange="updateTaskAssignment(${task.index}, this.value)">
-                                    <option value="">Unassigned</option>
-                                    ${teamMembers.map(member => 
-                                        `<option value="${member}" ${assignedPerson === member ? 'selected' : ''}>${member.split(' ')[0]}</option>`
-                                    ).join('')}
-                                </select>
-                                <select class="task-input status-${status}" onchange="updateTaskStatus(${task.index}, this.value)">
-                                    <option value="incomplete" ${status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
-                                    <option value="in-progress" ${status === 'in-progress' ? 'selected' : ''}>In Progress</option>
-                                    <option value="needs-help" ${status === 'needs-help' ? 'selected' : ''}>Needs Help</option>
-                                    <option value="blocked" ${status === 'blocked' ? 'selected' : ''}>Blocked</option>
-                                    <option value="complete" ${status === 'complete' ? 'selected' : ''}>Complete</option>
-                                </select>
+                                <div class="task-input-group">
+                                    <input type="date" class="task-input due-date-input" value="${dueDate}" 
+                                           onchange="updateTaskDueDate(${task.index}, this.value)">
+                                    <div class="task-input-help">
+                                        ?
+                                        <div class="help-tooltip">${taskInputHelp.dueDate}</div>
+                                    </div>
+                                </div>
+                                <div class="task-input-group">
+                                    <input type="number" class="task-input time-estimate-input" value="${timeEstimate}" 
+                                           min="0.5" step="0.5" placeholder="hrs"
+                                           onchange="updateTaskTimeEstimate(${task.index}, this.value)">
+                                    <div class="task-input-help">
+                                        ?
+                                        <div class="help-tooltip">${taskInputHelp.timeEstimate}</div>
+                                    </div>
+                                </div>
+                                <div class="task-input-group">
+                                    <select class="task-input" onchange="updateTaskAssignment(${task.index}, this.value)">
+                                        <option value="">Unassigned</option>
+                                        ${teamMembers.map(member => 
+                                            `<option value="${member}" ${assignedPerson === member ? 'selected' : ''}>${member.split(' ')[0]}</option>`
+                                        ).join('')}
+                                    </select>
+                                    <div class="task-input-help">
+                                        ?
+                                        <div class="help-tooltip">${taskInputHelp.assignment}</div>
+                                    </div>
+                                </div>
+                                <div class="task-input-group">
+                                    <select class="task-input status-${status}" onchange="updateTaskStatus(${task.index}, this.value)">
+                                        <option value="incomplete" ${status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
+                                        <option value="in-progress" ${status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+                                        <option value="needs-help" ${status === 'needs-help' ? 'selected' : ''}>Needs Help</option>
+                                        <option value="blocked" ${status === 'blocked' ? 'selected' : ''}>Blocked</option>
+                                        <option value="complete" ${status === 'complete' ? 'selected' : ''}>Complete</option>
+                                    </select>
+                                    <div class="task-input-help">
+                                        ?
+                                        <div class="help-tooltip">${taskInputHelp.status}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>`;
                 });
@@ -1084,6 +1332,11 @@
 
             container.innerHTML = html;
             applyFilters();
+        }
+
+        function updateSectionSubtitle(section, subtitle) {
+            state.sectionSubtitles[section] = subtitle;
+            showSaveIndicator();
         }
 
         function applyFilters() {
