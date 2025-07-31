@@ -378,10 +378,21 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .btn:hover {
+        .btn:hover:not(:disabled) {
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(255, 0, 0, 0.4);
             transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(43, 44, 44, 0.5);
+        }
+
+        .btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         .checklist-container {
@@ -1093,6 +1104,7 @@
                     <h4>🔗 Google Workspace Integration</h4>
                     <p>Connect to Google Workspace to auto-create proposal folders, schedule meetings, and export to Sheets.</p>
                     <button class="auth-button" onclick="initGoogleAuth()" id="authButton">Connect Google Workspace</button>
+                    <button class="auth-button" onclick="enableDemoMode()" style="margin-left: 10px; background: #666;">Use Demo Mode</button>
                 </div>
 
                 <button class="start-button" onclick="startChecklist()">Start Checklist</button>
@@ -1203,8 +1215,8 @@
 
             <div class="export-controls">
                 <button class="btn" onclick="exportProgress()">Export Progress</button>
-                <button class="btn" onclick="exportToSheets()" id="exportSheetsBtn">Export to Google Sheets</button>
-                <button class="btn" onclick="window.testCreateFolder()" id="createFolderBtnMain">Create Drive Folder</button>
+                <button class="btn" onclick="exportToSheets()" id="exportSheetsBtn" title="Connect Google Workspace first">Export to Google Sheets</button>
+                <button class="btn" onclick="createDriveFolder()" id="createFolderBtnMain" title="Connect Google Workspace first">Create Drive Folder</button>
                 <button class="btn" onclick="resetProgress()">Reset All</button>
                 <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
             </div>
@@ -1459,13 +1471,34 @@
                 state.googleAuth.isSignedIn = true;
                 state.googleAuth.accessToken = 'demo-token-' + Date.now();
                 
-                document.getElementById('authButton').textContent = '✅ Connected to Google Workspace';
-                document.getElementById('authButton').disabled = true;
-                document.getElementById('authButton').style.background = '#28A745';
+                const authButton = document.getElementById('authButton');
+                if (authButton) {
+                    authButton.textContent = '✅ Connected to Google Workspace';
+                    authButton.disabled = true;
+                    authButton.style.background = '#28A745';
+                }
                 
                 showIntegrationStatus('✅ Google Workspace connected successfully!');
                 updateIntegrationButtons();
+                
+                // Enable buttons after connection
+                enableGoogleButtons();
             }, 2000);
+        }
+        
+        function enableGoogleButtons() {
+            const exportBtn = document.getElementById('exportSheetsBtn');
+            const createBtn = document.getElementById('createFolderBtnMain');
+            
+            if (exportBtn) {
+                exportBtn.disabled = false;
+                exportBtn.title = 'Export to Google Sheets';
+            }
+            
+            if (createBtn) {
+                createBtn.disabled = false;
+                createBtn.title = 'Create Drive Folder';
+            }
         }
 
         function updateIntegrationButtons() {
@@ -1552,7 +1585,7 @@
             
             if (!state.googleAuth.isSignedIn) {
                 showIntegrationStatus('❌ Please connect Google Workspace first', false);
-                console.log('Not signed in, returning');
+                alert('Please click "Connect Google Workspace" button first, then wait for it to show as connected.');
                 return;
             }
 
@@ -2224,53 +2257,27 @@
             }
         }
 
-        // Add test function to window for debugging
-        window.testCreateFolder = function() {
-            console.log('Test create folder clicked');
+        // Add demo mode function
+        function enableDemoMode() {
+            state.googleAuth.isSignedIn = true;
+            state.googleAuth.accessToken = 'demo-mode';
             
-            // Try direct modal show first
-            const modal = document.getElementById('fileUploadModal');
-            console.log('Modal element:', modal);
-            
-            if (!modal) {
-                console.error('Modal not found!');
-                alert('Modal element not found in DOM');
-                return;
+            const authButton = document.getElementById('authButton');
+            if (authButton) {
+                authButton.textContent = '🎮 Demo Mode Active';
+                authButton.disabled = true;
+                authButton.style.background = '#666';
             }
             
-            // Check if we're authenticated
-            if (!state.googleAuth.isSignedIn) {
-                console.log('Not authenticated');
-                alert('Please connect Google Workspace first');
-                showIntegrationStatus('❌ Please connect Google Workspace first', false);
-                return;
-            }
-            
-            // Try to show modal directly
-            console.log('Showing modal...');
-            modal.style.display = 'flex';
-            modal.classList.add('show');
-            
-            // Update modal content
-            const titleElement = document.getElementById('modalFolderTitle');
-            if (titleElement) {
-                titleElement.textContent = `${state.currentOpportunity} - Proposal Folder`;
-            }
-            
-            // Reset file uploads
-            state.uploadedFiles = [];
-            state.selectedDestinations = {};
-            updateFileList();
-            
-            // Setup file drop handlers
-            setupFileDropHandlers();
-            
-            console.log('Modal should be visible now');
-            console.log('Modal display:', window.getComputedStyle(modal).display);
-        };
+            showIntegrationStatus('🎮 Demo mode enabled - all features available!');
+            updateIntegrationButtons();
+            enableGoogleButtons();
+        }
 
-        // Make sure createDriveFolder is also available globally
+        // Make functions globally available
         window.createDriveFolder = createDriveFolder;
+        window.exportToSheets = exportToSheets;
+        window.enableDemoMode = enableDemoMode;
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('landingPage').classList.remove('hidden');
             document.getElementById('checklistPage').classList.add('hidden');
