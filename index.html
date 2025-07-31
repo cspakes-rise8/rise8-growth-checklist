@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Checklists</title>
+    <title>Rise8 Growth Checklist</title>
     <style>
         * {
             margin: 0;
@@ -82,6 +82,22 @@
             filter: brightness(1.1);
         }
 
+        .back-button {
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+
         .header h1 {
             font-size: 2.5rem;
             font-weight: 700;
@@ -94,115 +110,149 @@
             z-index: 1;
         }
 
-        .opportunity-input {
+        /* Landing Page Styles */
+        .landing-page {
             display: flex;
-            gap: 15px;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+            min-height: 60vh;
         }
 
-        .opportunity-input input {
-            padding: 12px 20px;
+        .opportunity-form {
+            background: rgba(43, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #F2F2F2;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 20px;
             border: 2px solid rgba(255, 0, 0, 0.3);
             border-radius: 8px;
             font-size: 1.1rem;
-            min-width: 300px;
             background: rgba(43, 44, 44, 0.8);
             color: #F2F2F2;
             transition: all 0.3s ease;
         }
 
-        .opportunity-input input:focus {
+        .form-group input:focus {
             outline: none;
             border-color: #FF0000;
             box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
             background: rgba(43, 44, 44, 1);
         }
 
-        .opportunity-input input::placeholder {
+        .form-group input::placeholder {
             color: #CACACA;
         }
 
-        .opportunity-input label {
-            font-weight: 600; 
-            color: #F2F2F2;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            background: rgba(43, 44, 44, 0.6);
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            padding: 15px 25px;
-            border-radius: 8px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #FF0000;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: #CACACA;
-            margin-top: 5px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-primary {
+        .start-button {
+            width: 100%;
+            padding: 15px 20px;
             background: linear-gradient(78deg, #FF0000 0%, #800031 100%);
             color: white;
             border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .btn-secondary {
-            background: rgba(43, 44, 44, 0.9);
-            color: #F2F2F2;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn:hover {
+        .start-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
         }
 
-        .btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-            border-color: rgba(255, 0, 0, 0.4);
+        .start-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Checklist Page Styles */
+        .checklist-page {
+            display: none;
+        }
+
+        .opportunity-header {
+            background: rgba(43, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .opportunity-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #F2F2F2;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress-container {
+            margin-bottom: 15px;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #F2F2F2;
+        }
+
+        .progress-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FF0000;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(43, 44, 44, 0.8);
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(78deg, #FF0000, #800031);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
         }
 
         .checklist-container {
@@ -212,33 +262,6 @@
             border: 1px solid rgba(255, 0, 0, 0.1);
             padding: 30px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .checklist-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 50px,
-                    rgba(255, 255, 255, 0.01) 50px,
-                    rgba(255, 255, 255, 0.01) 51px
-                ),
-                repeating-linear-gradient(
-                    0deg,
-                    transparent,
-                    transparent 50px,
-                    rgba(255, 255, 255, 0.01) 50px,
-                    rgba(255, 255, 255, 0.01) 51px
-                );
-            pointer-events: none;
         }
 
         .section {
@@ -256,13 +279,11 @@
             border-left: 4px solid #FF0000;
             text-transform: uppercase;
             letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
         }
 
         .task-item {
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 15px;
             padding: 15px 20px;
             margin-bottom: 8px;
@@ -270,105 +291,77 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 1;
         }
 
         .task-item:hover {
             background: rgba(255, 0, 0, 0.05);
-            transform: translateX(5px);
             border-color: rgba(255, 0, 0, 0.3);
         }
 
-        .task-item.completed {
-            background: rgba(255, 0, 0, 0.1);
-            border-color: #FF0000;
-        }
-
-        .task-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #CACACA;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-            margin-top: 2px;
-            background: rgba(43, 44, 44, 0.5);
-        }
-
-        .task-checkbox.checked {
-            background: #FF0000;
-            border-color: #FF0000;
-            position: relative;
-        }
-
-        .task-checkbox.checked::after {
-            content: '✓';
-            color: white;
-            font-size: 14px;
-            position: absolute;
-            top: -2px;
-            left: 3px;
-        }
-
-        .task-content {
-            flex: 1;
-        }
-
         .task-text {
+            flex: 1;
             font-size: 1rem;
             color: #F2F2F2;
             line-height: 1.5;
         }
 
-        .task-item.completed .task-text {
-            text-decoration: line-through;
-            color: #CACACA;
-        }
-
-        .task-fields {
-            display: grid;
-            grid-template-columns: 1fr 1fr 2fr;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .task-field {
+        .status-dropdown {
+            min-width: 140px;
             padding: 8px 12px;
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 6px;
             font-size: 0.9rem;
-            background: rgba(43, 44, 44, 0.7);
-            color: #F2F2F2;
-            transition: border-color 0.2s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .task-field:focus {
+        .status-dropdown:focus {
             outline: none;
             border-color: #FF0000;
-            background: rgba(43, 44, 44, 1);
         }
 
-        .task-field::placeholder {
-            color: #CACACA;
+        .status-incomplete { border-left: 4px solid #CACACA; }
+        .status-in-progress { border-left: 4px solid #0098FF; }
+        .status-needs-help { border-left: 4px solid #FF9500; }
+        .status-blocked { border-left: 4px solid #FF0000; }
+        .status-complete { border-left: 4px solid #00C851; }
+
+        .export-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(43, 44, 44, 0.8);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 0, 0, 0.2);
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(78deg, #FF0000, #800031);
-            transition: width 0.5s ease;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        .btn-secondary {
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         @media (max-width: 768px) {
@@ -376,69 +369,82 @@
                 font-size: 2rem;
             }
             
-            .opportunity-input input {
-                min-width: 250px;
-            }
-            
-            .stats {
-                gap: 10px;
-            }
-            
-            .stat {
-                padding: 10px 15px;
-            }
-            
-            .task-fields {
-                grid-template-columns: 1fr;
+            .opportunity-form {
+                margin: 20px;
+                padding: 30px;
             }
             
             .container {
                 padding: 15px;
+            }
+
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .status-dropdown {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="header-top">
-                <div class="rise8-logo">
-                    <img src="" alt="Rise8 Logo" />
+        <!-- Landing Page -->
+        <div id="landingPage" class="landing-page">
+            <div class="header">
+                <div class="header-top">
+                    <div class="rise8-logo">
+                        <img src="" alt="Rise8 Logo" />
+                    </div>
                 </div>
+                <h1>Growth Checklist</h1>
             </div>
-            <h1>Growth Checklists</h1>
-            <div class="opportunity-input">
-                <label for="opportunityName" style="font-weight: 600; color: #4a5568;">Opportunity Name:</label>
-                <input type="text" id="opportunityName" placeholder="Enter opportunity name..." />
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number" id="totalTasks">77</div>
-                    <div class="stat-label">Total Tasks</div>
+
+            <div class="opportunity-form">
+                <div class="form-group">
+                    <label for="opportunityName">Opportunity Name</label>
+                    <input type="text" id="opportunityName" placeholder="Enter opportunity name..." />
                 </div>
-                <div class="stat">
-                    <div class="stat-number" id="completedTasks">0</div>
-                    <div class="stat-label">Completed</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number" id="progressPercent">0%</div>
-                    <div class="stat-label">Progress</div>
-                </div>
+                <button class="start-button" onclick="startChecklist()">Start Checklist</button>
             </div>
         </div>
 
-        <div class="controls">
-            <button class="btn btn-primary" onclick="resetAllTasks()">Reset All</button>
-            <button class="btn btn-secondary" onclick="exportProgress()">Export Progress</button>
-            <button class="btn btn-secondary" onclick="showCompletedOnly()">Show Completed Only</button>
-            <button class="btn btn-secondary" onclick="showAllTasks()">Show All Tasks</button>
-        </div>
-
-        <div class="checklist-container">
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        <!-- Checklist Page -->
+        <div id="checklistPage" class="checklist-page">
+            <div class="header">
+                <div class="header-top">
+                    <div class="rise8-logo">
+                        <img src="" alt="Rise8 Logo" />
+                    </div>
+                    <button class="back-button" onclick="goBackToLanding()">← Back to Start</button>
+                </div>
+                <h1>Growth Checklist</h1>
             </div>
-            <div id="checklistContent"></div>
+
+            <div class="opportunity-header">
+                <div class="opportunity-name" id="currentOpportunityName"></div>
+                <div class="progress-container">
+                    <div class="progress-stats">
+                        <span class="progress-text">Progress</span>
+                        <span class="progress-percentage" id="progressPercentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="export-controls">
+                <button class="btn btn-secondary" onclick="exportProgress()">Export Progress</button>
+                <button class="btn btn-secondary" onclick="resetProgress()">Reset All</button>
+            </div>
+
+            <div class="checklist-container">
+                <div id="checklistContent"></div>
+            </div>
         </div>
     </div>
 
@@ -544,8 +550,65 @@
             { section: "Contingency Planning", text: "Create backup submission plans" }
         ];
 
-        let taskStates = JSON.parse(localStorage.getItem('taskStates') || '{}');
-        let showCompletedOnlyMode = false;
+        let currentOpportunity = '';
+        let taskStatuses = {};
+
+        // Load logo when page loads
+        async function loadLogo() {
+            try {
+                const logoData = await window.fs.readFile('rise8-logo.png');
+                const blob = new Blob([logoData], { type: 'image/png' });
+                const logoUrl = URL.createObjectURL(blob);
+                
+                const logoImgs = document.querySelectorAll('.rise8-logo img');
+                logoImgs.forEach(img => {
+                    img.src = logoUrl;
+                });
+            } catch (error) {
+                console.log('Logo file not found, using fallback');
+                const logoContainers = document.querySelectorAll('.rise8-logo');
+                logoContainers.forEach(container => {
+                    container.innerHTML = '<span style="color: #F2F2F2; font-size: 1.5rem; font-weight: 700;">RISE<span style="color: #FF0000;">8</span></span>';
+                });
+            }
+        }
+
+        function startChecklist() {
+            const opportunityName = document.getElementById('opportunityName').value.trim();
+            
+            if (!opportunityName) {
+                alert('Please enter an opportunity name');
+                return;
+            }
+
+            currentOpportunity = opportunityName;
+            
+            // Load existing data for this opportunity
+            const savedData = localStorage.getItem(`checklist_${opportunityName}`);
+            if (savedData) {
+                taskStatuses = JSON.parse(savedData);
+            } else {
+                // Initialize all tasks as incomplete
+                taskStatuses = {};
+                tasks.forEach((task, index) => {
+                    taskStatuses[index] = 'incomplete';
+                });
+            }
+
+            // Show checklist page
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('checklistPage').classList.remove('hidden');
+            document.getElementById('currentOpportunityName').textContent = opportunityName;
+            
+            renderChecklist();
+            updateProgress();
+        }
+
+        function goBackToLanding() {
+            document.getElementById('checklistPage').classList.add('hidden');
+            document.getElementById('landingPage').classList.remove('hidden');
+            document.getElementById('opportunityName').value = '';
+        }
 
         function renderChecklist() {
             const container = document.getElementById('checklistContent');
@@ -562,42 +625,23 @@
             let html = '';
             Object.keys(sections).forEach(section => {
                 const sectionTasks = sections[section];
-                const visibleTasks = showCompletedOnlyMode ? 
-                    sectionTasks.filter(task => taskStates[task.index]?.completed) : 
-                    sectionTasks;
-
-                if (visibleTasks.length === 0 && showCompletedOnlyMode) return;
-
+                
                 html += `<div class="section">
                     <div class="section-header">${section}</div>`;
                 
-                visibleTasks.forEach(task => {
-                    const state = taskStates[task.index] || {};
-                    const isCompleted = state.completed || false;
+                sectionTasks.forEach(task => {
+                    const status = taskStatuses[task.index] || 'incomplete';
                     
                     html += `
-                        <div class="task-item ${isCompleted ? 'completed' : ''}">
-                            <div class="task-checkbox ${isCompleted ? 'checked' : ''}" 
-                                 onclick="toggleTask(${task.index})"></div>
-                            <div class="task-content">
-                                <div class="task-text">${task.text}</div>
-                                <div class="task-fields">
-                                    <input type="text" 
-                                           class="task-field" 
-                                           placeholder="Owner" 
-                                           value="${state.owner || ''}"
-                                           onchange="updateTaskField(${task.index}, 'owner', this.value)">
-                                    <input type="date" 
-                                           class="task-field" 
-                                           value="${state.dueDate || ''}"
-                                           onchange="updateTaskField(${task.index}, 'dueDate', this.value)">
-                                    <input type="text" 
-                                           class="task-field" 
-                                           placeholder="Notes" 
-                                           value="${state.notes || ''}"
-                                           onchange="updateTaskField(${task.index}, 'notes', this.value)">
-                                </div>
-                            </div>
+                        <div class="task-item status-${status}">
+                            <div class="task-text">${task.text}</div>
+                            <select class="status-dropdown" onchange="updateTaskStatus(${task.index}, this.value)">
+                                <option value="incomplete" ${status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
+                                <option value="in-progress" ${status === 'in-progress' ? 'selected' : ''}>In Progress</option>
+                                <option value="needs-help" ${status === 'needs-help' ? 'selected' : ''}>Needs Help</option>
+                                <option value="blocked" ${status === 'blocked' ? 'selected' : ''}>Blocked</option>
+                                <option value="complete" ${status === 'complete' ? 'selected' : ''}>Complete</option>
+                            </select>
                         </div>`;
                 });
                 
@@ -605,41 +649,90 @@
             });
 
             container.innerHTML = html;
-            updateStats();
         }
 
-        function toggleTask(index) {
-            if (!taskStates[index]) taskStates[index] = {};
-            taskStates[index].completed = !taskStates[index].completed;
-            saveState();
-            renderChecklist();
+        function updateTaskStatus(taskIndex, status) {
+            taskStatuses[taskIndex] = status;
+            saveProgress();
+            updateProgress();
+            
+            // Update the visual indicator
+            const taskItem = document.querySelector(`select[onchange*="${taskIndex}"]`).closest('.task-item');
+            taskItem.className = `task-item status-${status}`;
         }
 
-        function updateTaskField(index, field, value) {
-            if (!taskStates[index]) taskStates[index] = {};
-            taskStates[index][field] = value;
-            saveState();
-        }
+        function updateProgress() {
+            const completedTasks = Object.values(taskStatuses).filter(status => status === 'complete').length;
+            const totalTasks = tasks.length;
+            const progressPercent = Math.round((completedTasks / totalTasks) * 100);
 
-        function updateStats() {
-            const completedCount = Object.values(taskStates).filter(state => state.completed).length;
-            const totalCount = tasks.length;
-            const progressPercent = Math.round((completedCount / totalCount) * 100);
-
-            document.getElementById('totalTasks').textContent = totalCount;
-            document.getElementById('completedTasks').textContent = completedCount;
-            document.getElementById('progressPercent').textContent = progressPercent + '%';
+            document.getElementById('progressPercentage').textContent = progressPercent + '%';
             document.getElementById('progressFill').style.width = progressPercent + '%';
         }
 
-        function saveState() {
-            localStorage.setItem('taskStates', JSON.stringify(taskStates));
-            const opportunityName = document.getElementById('opportunityName').value;
-            if (opportunityName) {
-                localStorage.setItem('opportunityName', opportunityName);
+        function saveProgress() {
+            if (currentOpportunity) {
+                localStorage.setItem(`checklist_${currentOpportunity}`, JSON.stringify(taskStatuses));
             }
         }
 
-        function resetAllTasks() {
-            if (confirm('Are you sure you want to reset all tasks? This cannot be undone.')) {
-                taskStates =
+        function exportProgress() {
+            const completedTasks = Object.values(taskStatuses).filter(status => status === 'complete').length;
+            const totalTasks = tasks.length;
+            const progressPercent = Math.round((completedTasks / totalTasks) * 100);
+
+            let reportData = `Rise8 Growth Checklist Progress Report\n`;
+            reportData += `Opportunity: ${currentOpportunity}\n`;
+            reportData += `Generated: ${new Date().toLocaleDateString()}\n`;
+            reportData += `Progress: ${completedTasks}/${totalTasks} (${progressPercent}%)\n\n`;
+
+            const sections = {};
+            tasks.forEach((task, index) => {
+                if (!sections[task.section]) {
+                    sections[task.section] = [];
+                }
+                sections[task.section].push({ ...task, index, status: taskStatuses[index] || 'incomplete' });
+            });
+
+            Object.keys(sections).forEach(section => {
+                reportData += `\n=== ${section} ===\n`;
+                sections[section].forEach(task => {
+                    const statusText = task.status.replace('-', ' ').toUpperCase();
+                    reportData += `[${statusText}] ${task.text}\n`;
+                });
+            });
+
+            const blob = new Blob([reportData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${currentOpportunity}_checklist_progress.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                tasks.forEach((task, index) => {
+                    taskStatuses[index] = 'incomplete';
+                });
+                saveProgress();
+                renderChecklist();
+                updateProgress();
+            }
+        }
+
+        // Load logo when page loads
+        document.addEventListener('DOMContentLoaded', loadLogo);
+
+        // Allow Enter key to start checklist
+        document.getElementById('opportunityName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startChecklist();
+            }
+        });
+    </script>
+</body>
+</html>
