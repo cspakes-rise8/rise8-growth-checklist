@@ -583,6 +583,348 @@
             opacity: 1;
         }
 
+        .integration-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(43, 44, 44, 0.95);
+            color: #F2F2F2;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .integration-status.show {
+            opacity: 1;
+        }
+
+        .integration-status.success {
+            background: rgba(40, 167, 69, 0.9);
+            border-color: #28A745;
+        }
+
+        .integration-status.error {
+            background: rgba(255, 0, 0, 0.9);
+            border-color: #FF0000;
+        }
+
+        .google-auth-section {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FF0000;
+        }
+
+        .google-auth-section h4 {
+            color: #FF0000;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .google-auth-section p {
+            font-size: 0.9rem;
+            color: #CACACA;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .auth-button {
+            background: #4285f4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .auth-button:hover {
+            background: #3367d6;
+            transform: translateY(-1px);
+        }
+
+        .file-upload-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .file-upload-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(43, 44, 44, 0.98);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #F2F2F2;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #F2F2F2;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #FF0000;
+        }
+
+        .folder-preview {
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #FF0000;
+        }
+
+        .folder-title {
+            font-weight: 600;
+            color: #FF0000;
+            margin-bottom: 10px;
+        }
+
+        .folder-structure {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #CACACA;
+            line-height: 1.4;
+        }
+
+        .upload-section {
+            margin-bottom: 25px;
+        }
+
+        .upload-label {
+            display: block;
+            font-weight: 600;
+            color: #F2F2F2;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .file-drop-zone {
+            border: 2px dashed rgba(255, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        .file-drop-zone:hover {
+            border-color: #FF0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .file-drop-zone.dragover {
+            border-color: #FF0000;
+            background: rgba(255, 0, 0, 0.15);
+            transform: scale(1.02);
+        }
+
+        .drop-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #FF0000;
+        }
+
+        .drop-text {
+            color: #F2F2F2;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .drop-subtext {
+            color: #CACACA;
+            font-size: 0.9rem;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-list {
+            margin-top: 15px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .file-icon {
+            color: #FF0000;
+            font-size: 1.2rem;
+        }
+
+        .file-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-name {
+            color: #F2F2F2;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .file-size {
+            color: #CACACA;
+            font-size: 0.8rem;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .remove-file-btn {
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.4);
+            color: #FF0000;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .remove-file-btn:hover {
+            background: rgba(255, 0, 0, 0.4);
+        }
+
+        .destination-selector {
+            margin-bottom: 15px;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .destination-option {
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #F2F2F2;
+        }
+
+        .destination-option:hover {
+            border-color: #FF0000;
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .destination-option.selected {
+            border-color: #FF0000;
+            background: rgba(255, 0, 0, 0.2);
+            color: #FF0000;
+            font-weight: 600;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .modal-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(78deg, #FF0000 0%, #800031 100%);
+            color: white;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+        .modal-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         /* Analytics Styles */
         .analytics-grid {
             display: grid;
@@ -747,6 +1089,12 @@
                     <p>Full proposal development workflow including teaming agreements, comprehensive technical writing, and competitive pricing strategy. Estimated timeline: 10-12 weeks.</p>
                 </div>
 
+                <div class="google-auth-section" id="googleAuthSection">
+                    <h4>🔗 Google Workspace Integration</h4>
+                    <p>Connect to Google Workspace to auto-create proposal folders, schedule meetings, and export to Sheets.</p>
+                    <button class="auth-button" onclick="initGoogleAuth()" id="authButton">Connect Google Workspace</button>
+                </div>
+
                 <button class="start-button" onclick="startChecklist()">Start Checklist</button>
             </div>
         </div>
@@ -855,6 +1203,8 @@
 
             <div class="export-controls">
                 <button class="btn" onclick="exportProgress()">Export Progress</button>
+                <button class="btn" onclick="exportToSheets()" id="exportSheetsBtn">Export to Google Sheets</button>
+                <button class="btn" onclick="createDriveFolder()" id="createFolderBtn">Create Drive Folder</button>
                 <button class="btn" onclick="resetProgress()">Reset All</button>
                 <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
             </div>
@@ -866,6 +1216,61 @@
     </div>
 
     <div class="save-indicator" id="saveIndicator">Saved</div>
+    <div class="integration-status" id="integrationStatus">Google Workspace Connected</div>
+
+    <!-- File Upload Modal -->
+    <div class="file-upload-modal" id="fileUploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">📁 Create Opportunity Folder</div>
+                <button class="close-btn" onclick="closeFileUploadModal()">&times;</button>
+            </div>
+
+            <div class="folder-preview">
+                <div class="folder-title" id="modalFolderTitle">Opportunity Folder</div>
+                <div class="folder-structure">
+                    📁 [Opportunity Name] - Proposal Folder<br>
+                    ├── 📁 01 - RFP Documents<br>
+                    ├── 📁 02 - Team Coordination<br>
+                    ├── 📁 03 - Solution Development<br>
+                    ├── 📁 04 - Writing & Drafts<br>
+                    ├── 📁 05 - Reviews & Feedback<br>
+                    ├── 📁 06 - Pricing & Business<br>
+                    ├── 📁 07 - Final Deliverables<br>
+                    └── 📁 08 - Submission Package
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <label class="upload-label">📎 Upload Initial Files (Optional)</label>
+                <div class="file-drop-zone" id="fileDropZone" onclick="document.getElementById('fileInput').click()">
+                    <div class="drop-icon">📤</div>
+                    <div class="drop-text">Drop files here or click to browse</div>
+                    <div class="drop-subtext">Supports: PDF, DOC, DOCX, XLS, XLSX, PPT, PPTX, TXT, Images</div>
+                </div>
+                <input type="file" id="fileInput" class="file-input" multiple 
+                       accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.jpg,.jpeg,.png,.gif">
+                
+                <div class="file-list" id="fileList"></div>
+
+                <div class="destination-selector" id="destinationSelector" style="display: none;">
+                    <label class="upload-label">📋 Choose destination folder for uploaded files:</label>
+                    <div class="destination-grid" id="destinationGrid"></div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-secondary" onclick="closeFileUploadModal()">Cancel</button>
+                <button class="modal-btn modal-btn-primary" id="createFolderBtn" onclick="executeCreateFolder()">
+                    Create Folder & Upload Files
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google APIs -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
 
     <script>
         // Global state
@@ -881,7 +1286,41 @@
             taskTimeEstimates: {},
             collapsedSections: new Set(),
             currentUser: 'Carlo Viray',
-            currentView: 'checklist'
+            currentView: 'checklist',
+            googleAuth: {
+                isSignedIn: false,
+                accessToken: null
+            },
+            uploadedFiles: [],
+            selectedDestinations: {}
+        };
+
+        // Folder structure for file organization
+        const folderStructure = [
+            { id: 'rfp', name: '01 - RFP Documents', description: 'Original RFP, amendments, Q&A' },
+            { id: 'team', name: '02 - Team Coordination', description: 'Meeting notes, team docs' },
+            { id: 'solution', name: '03 - Solution Development', description: 'Technical approach, architecture' },
+            { id: 'writing', name: '04 - Writing & Drafts', description: 'Draft sections, templates' },
+            { id: 'reviews', name: '05 - Reviews & Feedback', description: 'Review comments, feedback' },
+            { id: 'pricing', name: '06 - Pricing & Business', description: 'Cost models, pricing docs' },
+            { id: 'deliverables', name: '07 - Final Deliverables', description: 'Final proposal sections' },
+            { id: 'submission', name: '08 - Submission Package', description: 'Final submission files' }
+        ];
+
+        // Google Workspace Integration
+        const GOOGLE_CONFIG = {
+            CLIENT_ID: 'your-google-client-id', // Replace with actual client ID
+            API_KEY: 'your-google-api-key', // Replace with actual API key
+            DISCOVERY_DOCS: [
+                'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest',
+                'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest',
+                'https://www.googleapis.com/discovery/v1/apis/sheets/v4/rest'
+            ],
+            SCOPES: [
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/calendar.events',
+                'https://www.googleapis.com/auth/spreadsheets'
+            ].join(' ')
         };
 
         const teamMembers = ["Carlo Viray", "Clayton Spakes", "Shanna Chen", "Bree Knight"];
@@ -1004,10 +1443,338 @@
             return '';
         }
 
+        function showIntegrationStatus(message, isSuccess = true) {
+            const indicator = document.getElementById('integrationStatus');
+            indicator.textContent = message;
+            indicator.className = `integration-status ${isSuccess ? 'success' : 'error'} show`;
+            setTimeout(() => indicator.classList.remove('show'), 3000);
+        }
+
+        // Google Workspace Integration Functions
+        function initGoogleAuth() {
+            showIntegrationStatus('🔗 Initializing Google Workspace connection...');
+            
+            // Simulate authentication (in real implementation, use Google Identity Services)
+            setTimeout(() => {
+                state.googleAuth.isSignedIn = true;
+                state.googleAuth.accessToken = 'demo-token-' + Date.now();
+                
+                document.getElementById('authButton').textContent = '✅ Connected to Google Workspace';
+                document.getElementById('authButton').disabled = true;
+                document.getElementById('authButton').style.background = '#28A745';
+                
+                showIntegrationStatus('✅ Google Workspace connected successfully!');
+                updateIntegrationButtons();
+            }, 2000);
+        }
+
+        function updateIntegrationButtons() {
+            const isConnected = state.googleAuth.isSignedIn;
+            
+            document.getElementById('exportSheetsBtn').disabled = !isConnected;
+            document.getElementById('createFolderBtn').disabled = !isConnected;
+            
+            if (!isConnected) {
+                document.getElementById('exportSheetsBtn').title = 'Connect Google Workspace first';
+                document.getElementById('createFolderBtn').title = 'Connect Google Workspace first';
+            }
+        }
+
+        function exportToSheets() {
+            if (!state.googleAuth.isSignedIn) {
+                showIntegrationStatus('❌ Please connect Google Workspace first', false);
+                return;
+            }
+
+            showIntegrationStatus('📊 Creating Google Sheets export...');
+
+            // Simulate Google Sheets creation
+            setTimeout(() => {
+                const spreadsheetData = generateSheetsData();
+                const sheetUrl = `https://docs.google.com/spreadsheets/d/demo-${Date.now()}/edit`;
+                
+                showIntegrationStatus('✅ Exported to Google Sheets successfully!');
+                
+                // In real implementation, this would create actual sheet
+                if (confirm(`Proposal checklist exported to Google Sheets!\n\nWould you like to open the sheet?\n\n(Demo URL: ${sheetUrl})`)) {
+                    // window.open(sheetUrl, '_blank');
+                    console.log('Would open:', sheetUrl);
+                }
+            }, 2000);
+        }
+
+        function generateSheetsData() {
+            const data = [];
+            
+            // Header row
+            data.push(['Task', 'Section', 'Status', 'Assigned To', 'Due Date', 'Time Estimate', 'Days Until Due']);
+            
+            // Task rows
+            tasks.forEach((task, index) => {
+                const status = state.taskStatuses[index] || 'incomplete';
+                const assignedTo = state.taskAssignments[index] || 'Unassigned';
+                const dueDate = state.taskDueDates[index] || '';
+                const timeEstimate = state.taskTimeEstimates[index] || task.estimatedHours;
+                const daysUntilDue = getDaysUntilDue(dueDate);
+                
+                data.push([
+                    task.text,
+                    task.section,
+                    status,
+                    assignedTo,
+                    dueDate,
+                    timeEstimate + 'h',
+                    daysUntilDue !== null ? daysUntilDue + ' days' : 'No date'
+                ]);
+            });
+            
+            return data;
+        }
+
         function showSaveIndicator() {
             const indicator = document.getElementById('saveIndicator');
             indicator.classList.add('show');
             setTimeout(() => indicator.classList.remove('show'), 2000);
+        }
+
+        function createDriveFolder() {
+            if (!state.googleAuth.isSignedIn) {
+                showIntegrationStatus('❌ Please connect Google Workspace first', false);
+                return;
+            }
+
+            console.log('Opening file upload modal...');
+            openFileUploadModal();
+        }
+
+        function openFileUploadModal() {
+            console.log('Modal should open now');
+            
+            // Update modal title with opportunity name
+            const titleElement = document.getElementById('modalFolderTitle');
+            if (titleElement) {
+                titleElement.textContent = `${state.currentOpportunity} - Proposal Folder`;
+            }
+            
+            // Reset file uploads
+            state.uploadedFiles = [];
+            state.selectedDestinations = {};
+            updateFileList();
+            
+            // Show modal
+            const modal = document.getElementById('fileUploadModal');
+            if (modal) {
+                modal.classList.add('show');
+                console.log('Modal should be visible');
+            } else {
+                console.error('Modal element not found');
+            }
+            
+            // Setup file drop handlers
+            setupFileDropHandlers();
+        }
+
+        function closeFileUploadModal() {
+            document.getElementById('fileUploadModal').classList.remove('show');
+            
+            // Clear file input
+            document.getElementById('fileInput').value = '';
+            state.uploadedFiles = [];
+            state.selectedDestinations = {};
+            updateFileList();
+        }
+
+        function setupFileDropHandlers() {
+            const dropZone = document.getElementById('fileDropZone');
+            const fileInput = document.getElementById('fileInput');
+
+            // Prevent default drag behaviors
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+                document.body.addEventListener(eventName, preventDefaults, false);
+            });
+
+            // Highlight drop zone when item is dragged over it
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+            });
+
+            // Handle dropped files
+            dropZone.addEventListener('drop', handleFileDrop, false);
+
+            // Handle file input change
+            fileInput.addEventListener('change', (e) => handleFileSelect(e.target.files));
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleFileDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFileSelect(files);
+        }
+
+        function handleFileSelect(files) {
+            Array.from(files).forEach(file => {
+                // Validate file type
+                const allowedTypes = ['.pdf', '.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.txt', '.jpg', '.jpeg', '.png', '.gif'];
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(fileExtension)) {
+                    showIntegrationStatus(`❌ File type not supported: ${file.name}`, false);
+                    return;
+                }
+
+                // Add to uploaded files
+                const fileObj = {
+                    id: Date.now() + Math.random(),
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    destination: 'rfp' // Default to RFP folder
+                };
+
+                state.uploadedFiles.push(fileObj);
+                state.selectedDestinations[fileObj.id] = 'rfp';
+            });
+
+            updateFileList();
+        }
+
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            const destinationSelector = document.getElementById('destinationSelector');
+            
+            if (state.uploadedFiles.length === 0) {
+                fileList.innerHTML = '';
+                destinationSelector.style.display = 'none';
+                return;
+            }
+
+            // Show destination selector
+            destinationSelector.style.display = 'block';
+            updateDestinationGrid();
+
+            // Update file list
+            let html = '';
+            state.uploadedFiles.forEach(fileObj => {
+                const sizeStr = formatFileSize(fileObj.size);
+                const destinationName = folderStructure.find(f => f.id === state.selectedDestinations[fileObj.id])?.name || 'Unknown';
+                
+                html += `
+                    <div class="file-item">
+                        <div class="file-info">
+                            <div class="file-icon">📄</div>
+                            <div class="file-details">
+                                <div class="file-name">${fileObj.name}</div>
+                                <div class="file-size">${sizeStr} → ${destinationName}</div>
+                            </div>
+                        </div>
+                        <div class="file-actions">
+                            <button class="remove-file-btn" onclick="removeFile('${fileObj.id}')">Remove</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            fileList.innerHTML = html;
+        }
+
+        function updateDestinationGrid() {
+            const grid = document.getElementById('destinationGrid');
+            
+            let html = '';
+            folderStructure.forEach(folder => {
+                html += `
+                    <div class="destination-option" onclick="selectAllDestination('${folder.id}')" 
+                         title="${folder.description}">
+                        <div style="font-weight: 600;">${folder.name}</div>
+                        <div style="font-size: 0.75rem; margin-top: 5px; opacity: 0.8;">${folder.description}</div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = html;
+        }
+
+        function selectAllDestination(folderId) {
+            // Set all files to this destination
+            state.uploadedFiles.forEach(fileObj => {
+                state.selectedDestinations[fileObj.id] = folderId;
+            });
+
+            // Update visual selection
+            document.querySelectorAll('.destination-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+
+            updateFileList();
+        }
+
+        function removeFile(fileId) {
+            state.uploadedFiles = state.uploadedFiles.filter(f => f.id !== fileId);
+            delete state.selectedDestinations[fileId];
+            updateFileList();
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function executeCreateFolder() {
+            showIntegrationStatus('📁 Creating proposal folder structure...');
+            
+            // Close modal
+            closeFileUploadModal();
+
+            // Simulate Drive folder creation with file uploads
+            setTimeout(() => {
+                const folderUrl = `https://drive.google.com/drive/folders/demo-${Date.now()}`;
+                
+                // Create summary of what was created
+                let summary = `Created folder structure for "${state.currentOpportunity}":\n\n`;
+                summary += `📁 ${state.currentOpportunity} - Proposal Folder\n`;
+                folderStructure.forEach(folder => {
+                    const fileCount = state.uploadedFiles.filter(f => state.selectedDestinations[f.id] === folder.id).length;
+                    summary += `├── 📁 ${folder.name}`;
+                    if (fileCount > 0) {
+                        summary += ` (${fileCount} file${fileCount !== 1 ? 's' : ''} uploaded)`;
+                    }
+                    summary += '\n';
+                });
+
+                if (state.uploadedFiles.length > 0) {
+                    summary += `\n📎 Uploaded Files:\n`;
+                    state.uploadedFiles.forEach(fileObj => {
+                        const folderName = folderStructure.find(f => f.id === state.selectedDestinations[fileObj.id])?.name;
+                        summary += `• ${fileObj.name} → ${folderName}\n`;
+                    });
+                }
+
+                showIntegrationStatus('✅ Proposal folder created with files uploaded!');
+                
+                if (confirm(`${summary}\nWould you like to open the folder?\n\n(Demo URL: ${folderUrl})`)) {
+                    console.log('Would open:', folderUrl);
+                    console.log('Uploaded files:', state.uploadedFiles);
+                }
+
+                // Clear uploaded files after creation
+                state.uploadedFiles = [];
+                state.selectedDestinations = {};
+            }, 3000);
         }
 
         function updateTemplateInfo() {
@@ -1058,6 +1825,7 @@
             const subText = `Due: ${formatDate(state.proposalDeadline)} | Value: ${state.estimatedValue || 'TBD'} | ${state.contractLength} Years`;
             document.getElementById('currentOpportunityName').innerHTML = `${headerText}<br><small style="font-size: 0.8rem; opacity: 0.8;">${subText}</small>`;
             
+            updateIntegrationButtons();
             renderChecklist();
             renderTeamWorkload();
             updateProgress();
@@ -1442,7 +2210,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('landingPage').classList.remove('hidden');
             document.getElementById('checklistPage').classList.add('hidden');
-            console.log('Rise8 Checklist loaded successfully - Phase 3 Analytics ready!');
+            updateIntegrationButtons();
+            console.log('Rise8 Checklist loaded - Google Workspace integration ready!');
         });
     </script>
 </body>
