@@ -1204,7 +1204,7 @@
             <div class="export-controls">
                 <button class="btn" onclick="exportProgress()">Export Progress</button>
                 <button class="btn" onclick="exportToSheets()" id="exportSheetsBtn">Export to Google Sheets</button>
-                <button class="btn" onclick="createDriveFolder()" id="createFolderBtn">Create Drive Folder</button>
+                <button class="btn" onclick="createDriveFolder()" id="createFolderBtnMain">Create Drive Folder</button>
                 <button class="btn" onclick="resetProgress()">Reset All</button>
                 <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
             </div>
@@ -1261,7 +1261,7 @@
 
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-secondary" onclick="closeFileUploadModal()">Cancel</button>
-                <button class="modal-btn modal-btn-primary" id="createFolderBtn" onclick="executeCreateFolder()">
+                <button class="modal-btn modal-btn-primary" id="createFolderModalBtn" onclick="executeCreateFolder()">
                     Create Folder & Upload Files
                 </button>
             </div>
@@ -1471,12 +1471,21 @@
         function updateIntegrationButtons() {
             const isConnected = state.googleAuth.isSignedIn;
             
-            document.getElementById('exportSheetsBtn').disabled = !isConnected;
-            document.getElementById('createFolderBtn').disabled = !isConnected;
+            const exportSheetsBtn = document.getElementById('exportSheetsBtn');
+            const createFolderBtn = document.getElementById('createFolderBtnMain');
             
-            if (!isConnected) {
-                document.getElementById('exportSheetsBtn').title = 'Connect Google Workspace first';
-                document.getElementById('createFolderBtn').title = 'Connect Google Workspace first';
+            if (exportSheetsBtn) {
+                exportSheetsBtn.disabled = !isConnected;
+                if (!isConnected) {
+                    exportSheetsBtn.title = 'Connect Google Workspace first';
+                }
+            }
+            
+            if (createFolderBtn) {
+                createFolderBtn.disabled = !isConnected;
+                if (!isConnected) {
+                    createFolderBtn.title = 'Connect Google Workspace first';
+                }
             }
         }
 
@@ -1538,8 +1547,12 @@
         }
 
         function createDriveFolder() {
+            console.log('createDriveFolder called');
+            console.log('Google auth state:', state.googleAuth.isSignedIn);
+            
             if (!state.googleAuth.isSignedIn) {
                 showIntegrationStatus('❌ Please connect Google Workspace first', false);
+                console.log('Not signed in, returning');
                 return;
             }
 
@@ -1548,12 +1561,15 @@
         }
 
         function openFileUploadModal() {
-            console.log('Modal should open now');
+            console.log('openFileUploadModal called');
             
             // Update modal title with opportunity name
             const titleElement = document.getElementById('modalFolderTitle');
             if (titleElement) {
                 titleElement.textContent = `${state.currentOpportunity} - Proposal Folder`;
+                console.log('Updated modal title');
+            } else {
+                console.error('Modal title element not found');
             }
             
             // Reset file uploads
@@ -1565,9 +1581,11 @@
             const modal = document.getElementById('fileUploadModal');
             if (modal) {
                 modal.classList.add('show');
-                console.log('Modal should be visible');
+                console.log('Added show class to modal');
+                console.log('Modal classes:', modal.className);
+                console.log('Modal display style:', window.getComputedStyle(modal).display);
             } else {
-                console.error('Modal element not found');
+                console.error('Modal element not found!');
             }
             
             // Setup file drop handlers
