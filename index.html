@@ -197,6 +197,10 @@
             display: none;
         }
 
+        .checklist-page:not(.hidden) {
+            display: block;
+        }
+
         .opportunity-header {
             background: rgba(43, 44, 44, 0.95);
             backdrop-filter: blur(10px);
@@ -362,6 +366,10 @@
 
         .hidden {
             display: none !important;
+        }
+
+        .show {
+            display: block !important;
         }
 
         @media (max-width: 768px) {
@@ -556,16 +564,21 @@
         // Load logo when page loads
         async function loadLogo() {
             try {
-                const logoData = await window.fs.readFile('rise8-logo.png');
-                const blob = new Blob([logoData], { type: 'image/png' });
-                const logoUrl = URL.createObjectURL(blob);
-                
-                const logoImgs = document.querySelectorAll('.rise8-logo img');
-                logoImgs.forEach(img => {
-                    img.src = logoUrl;
-                });
+                // Check if window.fs is available (might not be in all environments)
+                if (typeof window.fs !== 'undefined' && window.fs.readFile) {
+                    const logoData = await window.fs.readFile('rise8-logo.png');
+                    const blob = new Blob([logoData], { type: 'image/png' });
+                    const logoUrl = URL.createObjectURL(blob);
+                    
+                    const logoImgs = document.querySelectorAll('.rise8-logo img');
+                    logoImgs.forEach(img => {
+                        img.src = logoUrl;
+                    });
+                } else {
+                    throw new Error('File system not available');
+                }
             } catch (error) {
-                console.log('Logo file not found, using fallback');
+                console.log('Logo file not found or file system not available, using text fallback');
                 const logoContainers = document.querySelectorAll('.rise8-logo');
                 logoContainers.forEach(container => {
                     container.innerHTML = '<span style="color: #F2F2F2; font-size: 1.5rem; font-weight: 700;">RISE<span style="color: #FF0000;">8</span></span>';
@@ -574,6 +587,7 @@
         }
 
         function startChecklist() {
+            console.log('Starting checklist...');
             const opportunityName = document.getElementById('opportunityName').value.trim();
             
             if (!opportunityName) {
@@ -581,27 +595,54 @@
                 return;
             }
 
+            console.log('Opportunity name:', opportunityName);
             currentOpportunity = opportunityName;
             
             // Load existing data for this opportunity
-            const savedData = localStorage.getItem(`checklist_${opportunityName}`);
-            if (savedData) {
-                taskStatuses = JSON.parse(savedData);
-            } else {
-                // Initialize all tasks as incomplete
+            try {
+                const savedData = localStorage.getItem(`checklist_${opportunityName}`);
+                if (savedData) {
+                    taskStatuses = JSON.parse(savedData);
+                    console.log('Loaded existing data');
+                } else {
+                    // Initialize all tasks as incomplete
+                    taskStatuses = {};
+                    tasks.forEach((task, index) => {
+                        taskStatuses[index] = 'incomplete';
+                    });
+                    console.log('Initialized new task statuses');
+                }
+            } catch (error) {
+                console.error('Error loading saved data:', error);
+                // Initialize fresh if there's an error
                 taskStatuses = {};
                 tasks.forEach((task, index) => {
                     taskStatuses[index] = 'incomplete';
                 });
             }
 
-            // Show checklist page
-            document.getElementById('landingPage').classList.add('hidden');
-            document.getElementById('checklistPage').classList.remove('hidden');
-            document.getElementById('currentOpportunityName').textContent = opportunityName;
-            
-            renderChecklist();
-            updateProgress();
+            try {
+                // Show checklist page
+                const landingPage = document.getElementById('landingPage');
+                const checklistPage = document.getElementById('checklistPage');
+                
+                landingPage.classList.add('hidden');
+                checklistPage.classList.remove('hidden');
+                checklistPage.classList.add('show');
+                
+                document.getElementById('currentOpportunityName').textContent = opportunityName;
+                
+                console.log('Page transition complete');
+                console.log('Landing page hidden:', landingPage.classList.contains('hidden'));
+                console.log('Checklist page visible:', !checklistPage.classList.contains('hidden'));
+                
+                renderChecklist();
+                updateProgress();
+                console.log('Checklist rendered successfully');
+            } catch (error) {
+                console.error('Error in startChecklist:', error);
+                alert('There was an error starting the checklist. Please try again.');
+            }
         }
 
         function goBackToLanding() {
@@ -611,7 +652,14 @@
         }
 
         function renderChecklist() {
+            console.log('Rendering checklist...');
             const container = document.getElementById('checklistContent');
+            
+            if (!container) {
+                console.error('Checklist container not found');
+                return;
+            }
+            
             const sections = {};
             
             // Group tasks by section
@@ -621,6 +669,8 @@
                 }
                 sections[task.section].push({ ...task, index });
             });
+
+            console.log('Sections created:', Object.keys(sections));
 
             let html = '';
             Object.keys(sections).forEach(section => {
@@ -649,6 +699,7 @@
             });
 
             container.innerHTML = html;
+            console.log('Checklist HTML rendered');
         }
 
         function updateTaskStatus(taskIndex, status) {
