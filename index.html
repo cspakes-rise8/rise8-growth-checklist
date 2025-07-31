@@ -663,7 +663,7 @@
         }
 
         .file-upload-modal.show {
-            display: flex;
+            display: flex !important;
         }
 
         .modal-content {
@@ -1204,7 +1204,7 @@
             <div class="export-controls">
                 <button class="btn" onclick="exportProgress()">Export Progress</button>
                 <button class="btn" onclick="exportToSheets()" id="exportSheetsBtn">Export to Google Sheets</button>
-                <button class="btn" onclick="createDriveFolder()" id="createFolderBtnMain">Create Drive Folder</button>
+                <button class="btn" onclick="window.testCreateFolder()" id="createFolderBtnMain">Create Drive Folder</button>
                 <button class="btn" onclick="resetProgress()">Reset All</button>
                 <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
             </div>
@@ -2224,7 +2224,53 @@
             }
         }
 
-        // Initialize
+        // Add test function to window for debugging
+        window.testCreateFolder = function() {
+            console.log('Test create folder clicked');
+            
+            // Try direct modal show first
+            const modal = document.getElementById('fileUploadModal');
+            console.log('Modal element:', modal);
+            
+            if (!modal) {
+                console.error('Modal not found!');
+                alert('Modal element not found in DOM');
+                return;
+            }
+            
+            // Check if we're authenticated
+            if (!state.googleAuth.isSignedIn) {
+                console.log('Not authenticated');
+                alert('Please connect Google Workspace first');
+                showIntegrationStatus('❌ Please connect Google Workspace first', false);
+                return;
+            }
+            
+            // Try to show modal directly
+            console.log('Showing modal...');
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            
+            // Update modal content
+            const titleElement = document.getElementById('modalFolderTitle');
+            if (titleElement) {
+                titleElement.textContent = `${state.currentOpportunity} - Proposal Folder`;
+            }
+            
+            // Reset file uploads
+            state.uploadedFiles = [];
+            state.selectedDestinations = {};
+            updateFileList();
+            
+            // Setup file drop handlers
+            setupFileDropHandlers();
+            
+            console.log('Modal should be visible now');
+            console.log('Modal display:', window.getComputedStyle(modal).display);
+        };
+
+        // Make sure createDriveFolder is also available globally
+        window.createDriveFolder = createDriveFolder;
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('landingPage').classList.remove('hidden');
             document.getElementById('checklistPage').classList.add('hidden');
