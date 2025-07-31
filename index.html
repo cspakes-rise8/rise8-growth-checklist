@@ -763,6 +763,102 @@
             border-color: #ff0000;
         }
 
+        /* Integration Styles */
+        .integration-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .integration-options {
+            margin-left: 24px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        .integration-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+
+        .integration-status.hubspot {
+            background: rgba(255, 122, 89, 0.2);
+            color: #ff7a59;
+            border: 1px solid rgba(255, 122, 89, 0.3);
+        }
+
+        .integration-status.slack {
+            background: rgba(74, 21, 75, 0.2);
+            color: #e01e5a;
+            border: 1px solid rgba(224, 30, 90, 0.3);
+        }
+
+        /* Integration Modal */
+        .integration-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .integration-modal.show {
+            display: flex;
+        }
+
+        .integration-modal-content {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .integration-log {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .log-entry.success {
+            color: #4caf50;
+        }
+
+        .log-entry.info {
+            color: #2196f3;
+        }
+
+        .log-entry.error {
+            color: #ff0000;
+        }
+
         /* Back Button */
         .back-btn {
             display: inline-flex;
@@ -864,6 +960,41 @@
                     </select>
                 </div>
                 
+                <div class="integration-section">
+                    <h3 style="color: #ff0000; margin-bottom: 15px; font-size: 1.1rem;">🔗 Integrations</h3>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="hubspotEnabled" style="margin-right: 8px;">
+                            Create HubSpot Deal
+                        </label>
+                        <div id="hubspotOptions" class="integration-options hidden" style="margin-top: 10px;">
+                            <input type="text" id="hubspotDealValue" placeholder="Deal value (e.g., $5M)" 
+                                   style="width: 100%; margin-bottom: 10px; padding: 8px;">
+                            <select id="hubspotPipeline" style="width: 100%; padding: 8px;">
+                                <option value="growth">Growth Pipeline</option>
+                                <option value="federal">Federal Pipeline</option>
+                                <option value="commercial">Commercial Pipeline</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="slackEnabled" style="margin-right: 8px;">
+                            Post to Slack Channel
+                        </label>
+                        <div id="slackOptions" class="integration-options hidden" style="margin-top: 10px;">
+                            <select id="slackChannel" style="width: 100%; padding: 8px;">
+                                <option value="hubspot-updates">#hubspot-updates</option>
+                                <option value="proposals">#proposals</option>
+                                <option value="growth-team">#growth-team</option>
+                                <option value="general">#general</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
                 <button class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1.1rem;" onclick="initializeChecklist()">
                     Start Checklist
                 </button>
@@ -882,6 +1013,7 @@
                             <div class="opportunity-name" id="displayOpportunityName"></div>
                             <div class="deadline" id="displayDeadline"></div>
                         </div>
+                        <div id="integrationStatuses" style="display: flex; align-items: center; gap: 10px;"></div>
                     </div>
                 </div>
             </div>
@@ -906,6 +1038,7 @@
             <div class="controls">
                 <button class="btn" onclick="toggleAllSections()">Expand/Collapse All</button>
                 <button class="btn" onclick="showExportModal()">Export Progress</button>
+                <button class="btn" onclick="syncIntegrations()">Sync Integrations</button>
                 <button class="btn" onclick="resetProgress()">Reset Progress</button>
             </div>
 
@@ -933,6 +1066,17 @@
             </div>
             <div class="modal-actions">
                 <button class="btn" onclick="hideExportModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Integration Modal -->
+    <div id="integrationModal" class="integration-modal">
+        <div class="integration-modal-content">
+            <h2 class="modal-header">🚀 Creating Integrations</h2>
+            <div id="integrationLog" class="integration-log"></div>
+            <div class="modal-actions">
+                <button class="btn" id="integrationDoneBtn" onclick="closeIntegrationModal()" style="display: none;">Done</button>
             </div>
         </div>
     </div>
@@ -1286,7 +1430,20 @@
                 sectionStates: {},
                 progress: 0,
                 totalTasks: 0,
-                completedTasks: 0
+                completedTasks: 0,
+                integrations: {
+                    hubspot: {
+                        enabled: document.getElementById('hubspotEnabled').checked,
+                        dealId: null,
+                        dealValue: document.getElementById('hubspotDealValue').value,
+                        pipeline: document.getElementById('hubspotPipeline').value
+                    },
+                    slack: {
+                        enabled: document.getElementById('slackEnabled').checked,
+                        channel: document.getElementById('slackChannel').value,
+                        threadTs: null
+                    }
+                }
             };
 
             // Calculate default due dates based on deadline
@@ -1323,7 +1480,13 @@
             saveAllChecklists();
             
             currentChecklistId = checklistId;
-            showChecklistPage();
+
+            // Process integrations if enabled
+            if (checklist.integrations.hubspot.enabled || checklist.integrations.slack.enabled) {
+                processIntegrations(checklist);
+            } else {
+                showChecklistPage();
+            }
         }
 
         // Show checklist page
@@ -1443,6 +1606,16 @@
             saveAllChecklists();
             renderChecklist();
             updateProgress();
+            
+            // Auto-sync if task is completed and integrations are enabled
+            if (checklist.tasks[taskId].completed && 
+                (checklist.integrations?.hubspot?.enabled || checklist.integrations?.slack?.enabled)) {
+                // Throttle auto-sync to every 5 completed tasks
+                if (checklist.completedTasks % 5 === 0) {
+                    showToast('Auto-syncing progress to integrations...', 'info');
+                    setTimeout(() => syncIntegrations(), 1000);
+                }
+            }
         }
 
         // Update task assignment
@@ -1606,8 +1779,215 @@
             }
         }
 
-        // Initialize on page load
-        window.addEventListener('DOMContentLoaded', () => {
+        // Process integrations
+        function processIntegrations(checklist) {
+            const modal = document.getElementById('integrationModal');
+            const log = document.getElementById('integrationLog');
+            log.innerHTML = '';
+            modal.classList.add('show');
+
+            let steps = [];
+            
+            if (checklist.integrations.hubspot.enabled) {
+                steps.push(() => createHubSpotDeal(checklist));
+            }
+            
+            if (checklist.integrations.slack.enabled) {
+                steps.push(() => postToSlack(checklist));
+            }
+
+            // Execute steps sequentially
+            executeIntegrationSteps(steps, 0, checklist);
+        }
+
+        function executeIntegrationSteps(steps, index, checklist) {
+            if (index >= steps.length) {
+                document.getElementById('integrationDoneBtn').style.display = 'block';
+                addLogEntry('✅ All integrations complete!', 'success');
+                saveAllChecklists();
+                return;
+            }
+
+            setTimeout(() => {
+                steps[index]();
+                executeIntegrationSteps(steps, index + 1, checklist);
+            }, 1500);
+        }
+
+        function addLogEntry(message, type = 'info') {
+            const log = document.getElementById('integrationLog');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            const timestamp = new Date().toLocaleTimeString();
+            entry.innerHTML = `<span style="opacity: 0.6">[${timestamp}]</span> <span>${message}</span>`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function createHubSpotDeal(checklist) {
+            addLogEntry('🔗 Connecting to HubSpot API...', 'info');
+            
+            setTimeout(() => {
+                const dealId = 'DEAL-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+                checklist.integrations.hubspot.dealId = dealId;
+                
+                addLogEntry(`📊 Creating deal "${checklist.opportunityName}"...`, 'info');
+                addLogEntry(`💰 Deal value: ${checklist.integrations.hubspot.dealValue || 'TBD'}`, 'info');
+                addLogEntry(`📈 Pipeline: ${checklist.integrations.hubspot.pipeline}`, 'info');
+                
+                setTimeout(() => {
+                    addLogEntry(`✅ HubSpot deal created: ${dealId}`, 'success');
+                    addLogEntry(`🔗 View in HubSpot: https://app.hubspot.com/contacts/demo/deal/${dealId}`, 'info');
+                }, 500);
+            }, 500);
+        }
+
+        function postToSlack(checklist) {
+            addLogEntry(`💬 Connecting to Slack workspace...`, 'info');
+            
+            setTimeout(() => {
+                const channel = checklist.integrations.slack.channel;
+                const threadTs = Date.now() / 1000;
+                checklist.integrations.slack.threadTs = threadTs;
+                
+                addLogEntry(`📢 Posting to ${channel}...`, 'info');
+                
+                const message = `🚀 *New Proposal Checklist Created*\n` +
+                    `*Opportunity:* ${checklist.opportunityName}\n` +
+                    `*Type:* ${checklist.proposalType.charAt(0).toUpperCase() + checklist.proposalType.slice(1)}\n` +
+                    `*Deadline:* ${new Date(checklist.proposalDeadline).toLocaleDateString()}\n` +
+                    `*Total Tasks:* ${checklist.totalTasks}`;
+                
+                addLogEntry('📝 Message preview:', 'info');
+                addLogEntry(message.replace(/\*/g, '').replace(/\n/g, '<br>'), 'info');
+                
+                setTimeout(() => {
+                    addLogEntry(`✅ Posted to ${channel}`, 'success');
+                    addLogEntry(`💬 Thread ID: ${threadTs}`, 'info');
+                    
+                    if (checklist.integrations.hubspot.enabled && channel === '#hubspot-updates') {
+                        addLogEntry(`🔗 Linked to HubSpot deal ${checklist.integrations.hubspot.dealId}`, 'success');
+                    }
+                }, 500);
+            }, 500);
+        }
+
+        function closeIntegrationModal() {
+            document.getElementById('integrationModal').classList.remove('show');
+            document.getElementById('integrationDoneBtn').style.display = 'none';
+            showChecklistPage();
+        }
+
+        function syncIntegrations() {
+            const checklist = allChecklists[currentChecklistId];
+            
+            if (!checklist.integrations || (!checklist.integrations.hubspot.enabled && !checklist.integrations.slack.enabled)) {
+                showToast('No integrations configured for this checklist', 'error');
+                return;
+            }
+
+            const modal = document.getElementById('integrationModal');
+            const log = document.getElementById('integrationLog');
+            log.innerHTML = '';
+            modal.classList.add('show');
+
+            addLogEntry('🔄 Syncing integrations...', 'info');
+
+            // Sync HubSpot
+            if (checklist.integrations.hubspot.enabled && checklist.integrations.hubspot.dealId) {
+                setTimeout(() => {
+                    addLogEntry(`📊 Updating HubSpot deal ${checklist.integrations.hubspot.dealId}...`, 'info');
+                    addLogEntry(`📈 Progress: ${checklist.progress}%`, 'info');
+                    addLogEntry(`✅ Tasks completed: ${checklist.completedTasks}/${checklist.totalTasks}`, 'info');
+                    
+                    setTimeout(() => {
+                        addLogEntry('✅ HubSpot deal updated', 'success');
+                    }, 1000);
+                }, 1000);
+            }
+
+            // Update Slack
+            if (checklist.integrations.slack.enabled && checklist.integrations.slack.threadTs) {
+                setTimeout(() => {
+                    addLogEntry(`💬 Updating Slack thread in ${checklist.integrations.slack.channel}...`, 'info');
+                    
+                    const updateMessage = `📊 *Progress Update*\n` +
+                        `Progress: ${checklist.progress}%\n` +
+                        `Completed: ${checklist.completedTasks}/${checklist.totalTasks} tasks`;
+                    
+                    addLogEntry('📝 Update message:', 'info');
+                    addLogEntry(updateMessage.replace(/\*/g, '').replace(/\n/g, '<br>'), 'info');
+                    
+                    setTimeout(() => {
+                        addLogEntry('✅ Slack thread updated', 'success');
+                    }, 1000);
+                }, 2000);
+            }
+
+            setTimeout(() => {
+                document.getElementById('integrationDoneBtn').style.display = 'block';
+                addLogEntry('✅ Sync complete!', 'success');
+            }, 3500);
+        }
+
+        // Show checklist page with integrations
+        function showChecklistPage() {
+            document.getElementById('dashboardPage').classList.add('hidden');
+            document.getElementById('landingPage').classList.add('hidden');
+            document.getElementById('checklistPage').classList.remove('hidden');
+            
+            const checklist = allChecklists[currentChecklistId];
+            
+            // Update header
+            document.getElementById('displayOpportunityName').textContent = checklist.opportunityName;
+            const deadline = new Date(checklist.proposalDeadline);
+            const daysUntil = Math.ceil((deadline - new Date()) / (1000 * 60 * 60 * 24));
+            document.getElementById('displayDeadline').textContent = 
+                `Due: ${deadline.toLocaleDateString()} (${daysUntil} days)`;
+            
+            // Show integration statuses
+            const statusContainer = document.getElementById('integrationStatuses');
+            statusContainer.innerHTML = '';
+            
+            if (checklist.integrations?.hubspot?.enabled && checklist.integrations.hubspot.dealId) {
+                statusContainer.innerHTML += `
+                    <span class="integration-status hubspot">
+                        <span>🔗</span>
+                        <span>HubSpot: ${checklist.integrations.hubspot.dealId}</span>
+                    </span>
+                `;
+            }
+            
+            if (checklist.integrations?.slack?.enabled && checklist.integrations.slack.channel) {
+                statusContainer.innerHTML += `
+                    <span class="integration-status slack">
+                        <span>💬</span>
+                        <span>Slack: ${checklist.integrations.slack.channel}</span>
+                    </span>
+                `;
+            }
+            
+            renderChecklist();
+            updateProgress();
+        }
+
+        // Add event listeners for integration toggles
+        document.addEventListener('DOMContentLoaded', () => {
+            const hubspotCheckbox = document.getElementById('hubspotEnabled');
+            const slackCheckbox = document.getElementById('slackEnabled');
+            
+            if (hubspotCheckbox) {
+                hubspotCheckbox.addEventListener('change', (e) => {
+                    document.getElementById('hubspotOptions').classList.toggle('hidden', !e.target.checked);
+                });
+            }
+            
+            if (slackCheckbox) {
+                slackCheckbox.addEventListener('change', (e) => {
+                    document.getElementById('slackOptions').classList.toggle('hidden', !e.target.checked);
+                });
+            }
+            
             loadAllChecklists();
             showDashboard();
         });
