@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Checklists</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #131414;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 0, 0, 0.05) 0%, transparent 50%),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+            min-height: 100vh;
+            color: #F2F2F2;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(43, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 40%, rgba(255, 0, 0, 0.03) 50%, transparent 60%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 1px,
+                    rgba(255, 255, 255, 0.01) 1px,
+                    rgba(255, 255, 255, 0.01) 2px
+                );
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .rise8-logo {
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+
+        .rise8-logo img {
+            height: 40px;
+            width: auto;
+            filter: brightness(1.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #F2F2F2;
+            margin-bottom: 10px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .opportunity-input {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .opportunity-input input {
+            padding: 12px 20px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            min-width: 300px;
+            background: rgba(43, 44, 44, 0.8);
+            color: #F2F2F2;
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-input input:focus {
+            outline: none;
+            border-color: #FF0000;
+            box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+            background: rgba(43, 44, 44, 1);
+        }
+
+        .opportunity-input input::placeholder {
+            color: #CACACA;
+        }
+
+        .opportunity-input label {
+            font-weight: 600; 
+            color: #F2F2F2;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: rgba(43, 44, 44, 0.6);
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FF0000;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #CACACA;
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(78deg, #FF0000 0%, #800031 100%);
+            color: white;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(43, 44, 44, 0.9);
+            color: #F2F2F2;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 0, 0, 0.4);
+        }
+
+        .checklist-container {
+            background: rgba(43, 44, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.1);
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checklist-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 255, 255, 0.01) 50px,
+                    rgba(255, 255, 255, 0.01) 51px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255, 255, 255, 0.01) 50px,
+                    rgba(255, 255, 255, 0.01) 51px
+                );
+            pointer-events: none;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #F2F2F2;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #FF0000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px 20px;
+            margin-bottom: 8px;
+            background: rgba(202, 202, 202, 0.05);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .task-item:hover {
+            background: rgba(255, 0, 0, 0.05);
+            transform: translateX(5px);
+            border-color: rgba(255, 0, 0, 0.3);
+        }
+
+        .task-item.completed {
+            background: rgba(255, 0, 0, 0.1);
+            border-color: #FF0000;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #CACACA;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            margin-top: 2px;
+            background: rgba(43, 44, 44, 0.5);
+        }
+
+        .task-checkbox.checked {
+            background: #FF0000;
+            border-color: #FF0000;
+            position: relative;
+        }
+
+        .task-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+            position: absolute;
+            top: -2px;
+            left: 3px;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-text {
+            font-size: 1rem;
+            color: #F2F2F2;
+            line-height: 1.5;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #CACACA;
+        }
+
+        .task-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .task-field {
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: rgba(43, 44, 44, 0.7);
+            color: #F2F2F2;
+            transition: border-color 0.2s ease;
+        }
+
+        .task-field:focus {
+            outline: none;
+            border-color: #FF0000;
+            background: rgba(43, 44, 44, 1);
+        }
+
+        .task-field::placeholder {
+            color: #CACACA;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(43, 44, 44, 0.8);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(78deg, #FF0000, #800031);
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .opportunity-input input {
+                min-width: 250px;
+            }
+            
+            .stats {
+                gap: 10px;
+            }
+            
+            .stat {
+                padding: 10px 15px;
+            }
+            
+            .task-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-top">
+                <div class="rise8-logo">
+                    <img src="" alt="Rise8 Logo" />
+                </div>
+            </div>
+            <h1>Growth Checklists</h1>
+            <div class="opportunity-input">
+                <label for="opportunityName" style="font-weight: 600; color: #4a5568;">Opportunity Name:</label>
+                <input type="text" id="opportunityName" placeholder="Enter opportunity name..." />
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number" id="totalTasks">77</div>
+                    <div class="stat-label">Total Tasks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="completedTasks">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" id="progressPercent">0%</div>
+                    <div class="stat-label">Progress</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="resetAllTasks()">Reset All</button>
+            <button class="btn btn-secondary" onclick="exportProgress()">Export Progress</button>
+            <button class="btn btn-secondary" onclick="showCompletedOnly()">Show Completed Only</button>
+            <button class="btn btn-secondary" onclick="showAllTasks()">Show All Tasks</button>
+        </div>
+
+        <div class="checklist-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div id="checklistContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const tasks = [
+            // Administration
+            { section: "Administration", text: "Receive and distribute formal RFP" },
+            { section: "Administration", text: "Create proposal folder in Opportunity Drive" },
+            { section: "Administration", text: "Log opportunity in pipeline tracker" },
+            { section: "Administration", text: "Assign proposal manager" },
+            { section: "Administration", text: "Create internal Slack channel for proposal team" },
+            { section: "Administration", text: "Develop proposal schedule with key milestones" },
+            { section: "Administration", text: "Create compliance matrix and document requirements" },
+            { section: "Administration", text: "Schedule internal kickoff with Growth, Delivery, and Executive stakeholders" },
+            { section: "Administration", text: "Create kickoff deck and agenda" },
+            { section: "Administration", text: "Establish shared access to working documents" },
+            
+            // Partner Coordination
+            { section: "Partner Coordination", text: "Identify teaming partners" },
+            { section: "Partner Coordination", text: "Send and collect NDAs" },
+            { section: "Partner Coordination", text: "Send and finalize Teaming Agreements" },
+            { section: "Partner Coordination", text: "Create external Slack channel with partners" },
+            { section: "Partner Coordination", text: "Distribute RFP materials to partners" },
+            { section: "Partner Coordination", text: "Conduct data calls to gather partner input" },
+            { section: "Partner Coordination", text: "Grant partners access to working documents" },
+            { section: "Partner Coordination", text: "Host partner kickoff meeting" },
+            
+            // Solutioning
+            { section: "Solutioning", text: "Schedule solutioning workshops" },
+            { section: "Solutioning", text: "Prepare solutioning workshop figjam" },
+            { section: "Solutioning", text: "Create NotebookLM, upload source documents, generate summaries" },
+            { section: "Solutioning", text: "Break down PWS into solution areas" },
+            { section: "Solutioning", text: "Define key outcomes and delivery strategies" },
+            { section: "Solutioning", text: "Identify team roles, structure, and delivery approach" },
+            { section: "Solutioning", text: "Capture win themes and differentiators" },
+            { section: "Solutioning", text: "Draft annotated outline aligned to evaluation criteria" },
+            { section: "Solutioning", text: "Identify all key past performance examples and references" },
+            { section: "Solutioning", text: "Research best practices and competitive intelligence" },
+            { section: "Solutioning", text: "Validate assumptions with subject matter experts" },
+            { section: "Solutioning", text: "Document key decisions and rationale" },
+            
+            // Resource Planning
+            { section: "Resource Planning", text: "Develop preliminary staffing plan" },
+            { section: "Resource Planning", text: "Identify key personnel and availability" },
+            { section: "Resource Planning", text: "Calculate labor rates and indirect costs" },
+            { section: "Resource Planning", text: "Develop cost model and pricing strategy" },
+            { section: "Resource Planning", text: "Validate resource requirements with delivery teams" },
+            { section: "Resource Planning", text: "Identify potential resource conflicts and mitigation strategies" },
+            
+            // Writing & Review
+            { section: "Writing & Review", text: "Assign writing leads for each section" },
+            { section: "Writing & Review", text: "Create writing templates and style guide" },
+            { section: "Writing & Review", text: "Establish review cycles and deadlines" },
+            { section: "Writing & Review", text: "Draft executive summary" },
+            { section: "Writing & Review", text: "Draft technical approach sections" },
+            { section: "Writing & Review", text: "Draft management approach sections" },
+            { section: "Writing & Review", text: "Draft past performance section" },
+            { section: "Writing & Review", text: "Draft key personnel section" },
+            { section: "Writing & Review", text: "Conduct internal technical review" },
+            { section: "Writing & Review", text: "Conduct compliance review" },
+            { section: "Writing & Review", text: "Conduct executive review" },
+            { section: "Writing & Review", text: "Incorporate review feedback" },
+            { section: "Writing & Review", text: "Final proofreading and formatting" },
+            
+            // Pricing & Business
+            { section: "Pricing & Business", text: "Finalize cost model" },
+            { section: "Pricing & Business", text: "Develop pricing strategy and fee structure" },
+            { section: "Pricing & Business", text: "Conduct pricing review with finance" },
+            { section: "Pricing & Business", text: "Validate pricing competitiveness" },
+            { section: "Pricing & Business", text: "Complete cost/price volume" },
+            { section: "Pricing & Business", text: "Obtain pricing approvals" },
+            
+            // Quality Assurance
+            { section: "Quality Assurance", text: "Complete final compliance check" },
+            { section: "Quality Assurance", text: "Verify all required documents are included" },
+            { section: "Quality Assurance", text: "Check page limits and formatting requirements" },
+            { section: "Quality Assurance", text: "Validate all cross-references and citations" },
+            { section: "Quality Assurance", text: "Review graphics and exhibits" },
+            { section: "Quality Assurance", text: "Conduct final quality review" },
+            
+            // Submission Preparation
+            { section: "Submission Preparation", text: "Prepare submission checklist" },
+            { section: "Submission Preparation", text: "Package proposal volumes" },
+            { section: "Submission Preparation", text: "Prepare electronic submission files" },
+            { section: "Submission Preparation", text: "Create backup copies" },
+            { section: "Submission Preparation", text: "Coordinate delivery logistics" },
+            { section: "Submission Preparation", text: "Submit proposal by deadline" },
+            { section: "Submission Preparation", text: "Send submission confirmation" },
+            
+            // Post-Submission
+            { section: "Post-Submission", text: "Conduct lessons learned session" },
+            { section: "Post-Submission", text: "Archive proposal materials" },
+            { section: "Post-Submission", text: "Prepare for potential orals/presentations" },
+            { section: "Post-Submission", text: "Develop post-award transition plan" },
+            { section: "Post-Submission", text: "Monitor award timeline and communications" },
+            { section: "Post-Submission", text: "Prepare win/loss analysis" },
+            
+            // Contingency Planning
+            { section: "Contingency Planning", text: "Identify potential risks and mitigation strategies" },
+            { section: "Contingency Planning", text: "Develop contingency plans for key personnel unavailability" },
+            { section: "Contingency Planning", text: "Plan for potential scope changes or amendments" },
+            { section: "Contingency Planning", text: "Establish communication protocols for issues" },
+            { section: "Contingency Planning", text: "Create backup submission plans" }
+        ];
+
+        let taskStates = JSON.parse(localStorage.getItem('taskStates') || '{}');
+        let showCompletedOnlyMode = false;
+
+        function renderChecklist() {
+            const container = document.getElementById('checklistContent');
+            const sections = {};
+            
+            // Group tasks by section
+            tasks.forEach((task, index) => {
+                if (!sections[task.section]) {
+                    sections[task.section] = [];
+                }
+                sections[task.section].push({ ...task, index });
+            });
+
+            let html = '';
+            Object.keys(sections).forEach(section => {
+                const sectionTasks = sections[section];
+                const visibleTasks = showCompletedOnlyMode ? 
+                    sectionTasks.filter(task => taskStates[task.index]?.completed) : 
+                    sectionTasks;
+
+                if (visibleTasks.length === 0 && showCompletedOnlyMode) return;
+
+                html += `<div class="section">
+                    <div class="section-header">${section}</div>`;
+                
+                visibleTasks.forEach(task => {
+                    const state = taskStates[task.index] || {};
+                    const isCompleted = state.completed || false;
+                    
+                    html += `
+                        <div class="task-item ${isCompleted ? 'completed' : ''}">
+                            <div class="task-checkbox ${isCompleted ? 'checked' : ''}" 
+                                 onclick="toggleTask(${task.index})"></div>
+                            <div class="task-content">
+                                <div class="task-text">${task.text}</div>
+                                <div class="task-fields">
+                                    <input type="text" 
+                                           class="task-field" 
+                                           placeholder="Owner" 
+                                           value="${state.owner || ''}"
+                                           onchange="updateTaskField(${task.index}, 'owner', this.value)">
+                                    <input type="date" 
+                                           class="task-field" 
+                                           value="${state.dueDate || ''}"
+                                           onchange="updateTaskField(${task.index}, 'dueDate', this.value)">
+                                    <input type="text" 
+                                           class="task-field" 
+                                           placeholder="Notes" 
+                                           value="${state.notes || ''}"
+                                           onchange="updateTaskField(${task.index}, 'notes', this.value)">
+                                </div>
+                            </div>
+                        </div>`;
+                });
+                
+                html += '</div>';
+            });
+
+            container.innerHTML = html;
+            updateStats();
+        }
+
+        function toggleTask(index) {
+            if (!taskStates[index]) taskStates[index] = {};
+            taskStates[index].completed = !taskStates[index].completed;
+            saveState();
+            renderChecklist();
+        }
+
+        function updateTaskField(index, field, value) {
+            if (!taskStates[index]) taskStates[index] = {};
+            taskStates[index][field] = value;
+            saveState();
+        }
+
+        function updateStats() {
+            const completedCount = Object.values(taskStates).filter(state => state.completed).length;
+            const totalCount = tasks.length;
+            const progressPercent = Math.round((completedCount / totalCount) * 100);
+
+            document.getElementById('totalTasks').textContent = totalCount;
+            document.getElementById('completedTasks').textContent = completedCount;
+            document.getElementById('progressPercent').textContent = progressPercent + '%';
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+        }
+
+        function saveState() {
+            localStorage.setItem('taskStates', JSON.stringify(taskStates));
+            const opportunityName = document.getElementById('opportunityName').value;
+            if (opportunityName) {
+                localStorage.setItem('opportunityName', opportunityName);
+            }
+        }
+
+        function resetAllTasks() {
+            if (confirm('Are you sure you want to reset all tasks? This cannot be undone.')) {
+                taskStates =
